@@ -1,0 +1,27 @@
+{
+  "name": "jumpstream",
+  "version": "1.0.0",
+  "description": "A live video editor for the web!",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "standard --fix && tape test/*.js",
+    "build": "browserify src/index.js -s JumpStreamer -o dist/jumpstreamer.js"
+  },
+  "author": "Thomas Mullen",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^8.6.0",
+    "tape": "^4.6.3"
+  },
+  "dependencies": {
+    "debounce": "^1.0.0",
+    "getusermedia": "^2.0.1",
+    "hyperscript": "^2.0.2",
+    "inherits": "^2.0.3",
+    "interactjs": "^1.2.8",
+    "video-stream-merger": "^2.0.5"
+  }
+}

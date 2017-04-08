@@ -1,0 +1,151 @@
+
+@background: #ECECEC;
+@view-background: #4C4C4C;
+@detail: #4C4C4C;
+
+.JumpStreamer {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background: @background;
+  min-width: 800px;
+  font-size: 14px;
+  font-family: Arial;
+  
+  button, label, .option {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .view {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 180px;
+    background: @view-background;
+    overflow: hidden;
+    text-align: center;
+    
+    .video {
+      height: 100%;
+      display: inline-block;
+      background: black;
+    }
+    
+    .mover {
+      height: 100px;
+      width: 100px;
+      position: absolute;
+      border: solid red 2px;
+    }
+  }
+  
+  .toolbar {
+    height: 170px;
+    display: flex;
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    
+    label, br {
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+    }
+    
+    > div {
+      display: inline-block;
+      margin: 5px;
+    }
+    
+    .scenes {
+      float: left;
+      width: 150px;
+    }
+    
+    .sources {
+      float: left;
+      width: 150px;
+    }
+    
+    .mixer {
+      flex-grow: 1;
+    }
+    
+    .transitions {
+      float: right;
+      width: 150px;
+    }
+    
+    .controls {
+      float: right;
+      width: 150px;
+      
+      button {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+      }
+    }
+  }
+  
+  .list {
+    .select {
+      background: white;
+      height: 110px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      
+      .option {
+        padding: 3px;
+        cursor: default;
+        
+        &.selected {
+          background: #D4D4D4;
+        }
+      }
+    }
+    
+    .controls {
+      background: #D9D9D9;
+      
+      span {
+        margin-left: 5px;
+        font-size: 24px;
+        pointer-events: none;
+      }
+      
+      button {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        background: none;
+        padding: 0;
+        border: none;
+        font-size: 18px;
+        margin-left: 5px;
+        cursor: pointer;
+        outline: none;
+        
+        &.disabled {
+          pointer-events: none;
+          color: #898989;
+        }
+        
+        &:hover {
+          color: #454545;
+        }
+        
+        &.plus, &.minus {
+          font-size: 26px;
+        }
+      }
+    }
+  }
+}
