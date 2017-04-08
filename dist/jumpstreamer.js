@@ -9450,10 +9450,10 @@ function List () {
                   self._select,
                   h('div.controls', 
                    self._plus,
-                   self._minus, 
+                   self._minus/*, 
                    h('span', '⦙'),
                    self._up,
-                   self._down))
+                   self._down*/))
   
   self._counter = 0
   self._selected = null
