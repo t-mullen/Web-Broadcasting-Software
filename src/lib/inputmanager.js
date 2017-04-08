@@ -29,14 +29,10 @@ function InputManager (opts) {
   self.inputs.forEach(function (a) {
     a.id = counter++
   })
-  
-  console.log(self.inputs)
 }
 
 InputManager.prototype.chooseDevice = function (cb) {
   var self = this
-  
-  console.log('choose')
   
   vex.dialog.open({
     message: 'Select a media source',
