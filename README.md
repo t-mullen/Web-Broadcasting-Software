@@ -1,6 +1,6 @@
 # jumpstreamer
 
-Live broadcasting and recording software for the web, inspired by OBS.  
+Live broadcasting and recording software for the web, inspired by [OBS](https://obsproject.com/).  
 
 [Demo](https://rationalcoding.github.io/jumpstreamer/)
 
