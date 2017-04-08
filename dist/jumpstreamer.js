@@ -9690,31 +9690,12 @@ function SourceMover (source, output) {
   self.xRatio = output.width / self.player.clientWidth
   self.yRatio = output.height / self.player.clientHeight
   
-  var lastOffset = {
-    left: self.player.offsetLeft,
-    top: self.player.offsetTop
-  }
-  
-  window.addEventListener('resize', function (e) {
-    self.x = self.x - lastOffset.left + self.player.offsetLeft
-    self.y = self.y - lastOffset.top + self.player.offsetTop
-    
-    // TODO: Figure out how to recalc the transform
-    
-    lastOffset = {
-      left: self.player.offsetLeft,
-      top: self.player.offsetTop
-    }
-    
-    self.width = self.width * self.xRatio
-    self.height = self.height * self.yRatio
+  window.addEventListener('resize', function (e) {   
     
     self.xRatio = output.width / self.player.clientWidth
     self.yRatio = output.height / self.player.clientHeight
     
-    self.width = self.width / self.xRatio
-    self.height = self.height / self.yRatio
-    
+    // TODO: Figure out how to recalc the transform
     self._setStyle()
   })
   
@@ -9795,8 +9776,9 @@ SourceMover.prototype._setStyle = function (element) {
   
   self.element.style.left = self.player.offsetLeft
   self.element.style.top = self.player.offsetTop
-  self.element.style.width = self.player.clientWidth
-  self.element.style.height = self.player.clientHeight
+  
+  self.element.style.width = self.width
+  self.element.style.height = self.height
 }
 
 SourceMover.prototype.draw = function (ctx, frame, next) {
@@ -9835,6 +9817,8 @@ module.exports = SourceMover
 },{"events":34,"hyperscript":4,"inherits":6,"interactjs":7}],22:[function(require,module,exports){
 var h = require('hyperscript')
 var VideoStreamMerger = require('video-stream-merger')
+var EventEmitter = require('events').EventEmitter
+var inherits = require('inherits')
 
 var View = require('./widgets/view')
 var Scenes = require('./widgets/scenes')
@@ -9842,6 +9826,8 @@ var Sources = require('./widgets/sources')
 var Transitions = require('./widgets/transitions')
 var Mixer = require('./widgets/mixer')
 var Controls = require('./widgets/controls')
+
+inherits(Display, EventEmitter)
 
 function Display (element, opts) {
   var self = this
@@ -9903,7 +9889,7 @@ Display.prototype._changeScene = function (scene) {
 }
   
 module.exports = Display
-},{"./widgets/controls":23,"./widgets/mixer":24,"./widgets/scenes":25,"./widgets/sources":26,"./widgets/transitions":27,"./widgets/view":28,"hyperscript":4,"video-stream-merger":9}],23:[function(require,module,exports){
+},{"./widgets/controls":23,"./widgets/mixer":24,"./widgets/scenes":25,"./widgets/sources":26,"./widgets/transitions":27,"./widgets/view":28,"events":34,"hyperscript":4,"inherits":6,"video-stream-merger":9}],23:[function(require,module,exports){
 var h = require('hyperscript')
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
@@ -10177,7 +10163,12 @@ View.prototype.setStream = function (stream) {
 
 module.exports = View
 },{"hyperscript":4}],29:[function(require,module,exports){
+var EventEmitter = require('events').EventEmitter
+var inherits = require('inherits')
+
 var Display = require('./display/display')
+
+inherits(JumpStreamer, EventEmitter)
 
 function JumpStreamer (element, opts) {
   var self = this
@@ -10189,10 +10180,16 @@ function JumpStreamer (element, opts) {
   
   self._display = new Display(element, opts)
   
+  self._display.on('stream', function (stream) {
+    self.emit('stream', stream)
+  })
+  self._display.on('stopstream', function () {
+    self.emit('stopstream')
+  })
 }
   
 module.exports = JumpStreamer
-},{"./display/display":22}],30:[function(require,module,exports){
+},{"./display/display":22,"events":34,"inherits":6}],30:[function(require,module,exports){
 var getusermedia = require('getusermedia')
 
 function InputManager () {

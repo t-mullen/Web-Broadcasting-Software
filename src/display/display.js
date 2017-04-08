@@ -1,5 +1,7 @@
 var h = require('hyperscript')
 var VideoStreamMerger = require('video-stream-merger')
+var EventEmitter = require('events').EventEmitter
+var inherits = require('inherits')
 
 var View = require('./widgets/view')
 var Scenes = require('./widgets/scenes')
@@ -7,6 +9,8 @@ var Sources = require('./widgets/sources')
 var Transitions = require('./widgets/transitions')
 var Mixer = require('./widgets/mixer')
 var Controls = require('./widgets/controls')
+
+inherits(Display, EventEmitter)
 
 function Display (element, opts) {
   var self = this

@@ -26,31 +26,12 @@ function SourceMover (source, output) {
   self.xRatio = output.width / self.player.clientWidth
   self.yRatio = output.height / self.player.clientHeight
   
-  var lastOffset = {
-    left: self.player.offsetLeft,
-    top: self.player.offsetTop
-  }
-  
-  window.addEventListener('resize', function (e) {
-    self.x = self.x - lastOffset.left + self.player.offsetLeft
-    self.y = self.y - lastOffset.top + self.player.offsetTop
-    
-    // TODO: Figure out how to recalc the transform
-    
-    lastOffset = {
-      left: self.player.offsetLeft,
-      top: self.player.offsetTop
-    }
-    
-    self.width = self.width * self.xRatio
-    self.height = self.height * self.yRatio
+  window.addEventListener('resize', function (e) {   
     
     self.xRatio = output.width / self.player.clientWidth
     self.yRatio = output.height / self.player.clientHeight
     
-    self.width = self.width / self.xRatio
-    self.height = self.height / self.yRatio
-    
+    // TODO: Figure out how to recalc the transform
     self._setStyle()
   })
   
@@ -131,8 +112,9 @@ SourceMover.prototype._setStyle = function (element) {
   
   self.element.style.left = self.player.offsetLeft
   self.element.style.top = self.player.offsetTop
-  self.element.style.width = self.player.clientWidth
-  self.element.style.height = self.player.clientHeight
+  
+  self.element.style.width = self.width
+  self.element.style.height = self.height
 }
 
 SourceMover.prototype.draw = function (ctx, frame, next) {
