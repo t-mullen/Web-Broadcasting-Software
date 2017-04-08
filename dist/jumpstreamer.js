@@ -11890,8 +11890,6 @@ SourceMover.prototype._setStyle = function (element) {
     'top:'+self.player.offsetTop+'px;'+
     'width:'+self.width+'px;'+
     'height:'+self.height+'px;'
-
-  console.log(self.element)
 }
 
 SourceMover.prototype.draw = function (ctx, frame, next) {
