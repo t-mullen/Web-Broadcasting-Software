@@ -23,7 +23,7 @@ or
   jump.on('stream', function (stream) {
     // stream is the MediaStream output
   })
-  jump.on('stopstream, function () {
+  jump.on('stopstream', function () {
     // called when the stream stops
   })
 </script>
