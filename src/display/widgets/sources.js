@@ -50,10 +50,10 @@ Sources.prototype.ready = function () {
 Sources.prototype._getSource = function () {
   var self = this
   
-  self.inputManager.chooseDevice(function (err, stream) {
+  self.inputManager.chooseDevice(function (err, name, stream) {
     if (err) throw err
     
-    var newSource = new Source(stream, 'Source') // TODO: Use name of source
+    var newSource = new Source(stream, name || 'Source')
     
     self.scene.addSource(newSource)
     self.list.addOption(newSource.name, newSource)

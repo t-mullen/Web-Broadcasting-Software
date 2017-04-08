@@ -20,7 +20,7 @@ function InputManager (opts) {
     name: 'Video Camera',
     getStream: function (cb) {
       getusermedia({audio:true, video:true}, function (err, stream) {
-        cb(err, stream)
+        cb(err, 'Video Camera', stream)
       })
     }
   })
