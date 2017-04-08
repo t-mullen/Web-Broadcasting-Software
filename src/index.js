@@ -21,6 +21,8 @@ function JumpStreamer (element, opts) {
     fps: 40
   }
   
+  opts.inputs = opts.inputs || []
+  
   self._display = new Display(element, opts)
   
   self._display.on('stream', function (stream) {

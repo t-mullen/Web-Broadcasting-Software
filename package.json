@@ -8,11 +8,12 @@
   },
   "scripts": {
     "test": "standard --fix && tape test/*.js",
-    "build": "browserify src/index.js -s JumpStreamer -o dist/jumpstreamer.js"
+    "build": "browserify src/index.js -t browserify-css -s JumpStreamer -o dist/jumpstreamer.js"
   },
   "author": "Thomas Mullen",
   "license": "MIT",
   "devDependencies": {
+    "browserify-css": "^0.10.0",
     "standard": "^8.6.0",
     "tape": "^4.6.3"
   },
@@ -22,6 +23,7 @@
     "hyperscript": "^2.0.2",
     "inherits": "^2.0.3",
     "interactjs": "^1.2.8",
+    "vex-js": "^3.1.1",
     "video-stream-merger": "^2.0.5"
   }
 }

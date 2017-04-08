@@ -8,11 +8,13 @@ var Source = require('./../../lib/source')
 
 inherits(Sources, EventEmitter)
 
-function Sources () {
+function Sources (opts) {
   var self = this
   if (!(self instanceof Sources)) return new Sources()
 
   self.list = new List()
+  
+  self.inputManager = new InputManager(opts)
   
   self.list.on('add', function () {
     self._getSource()
@@ -48,7 +50,9 @@ Sources.prototype.ready = function () {
 Sources.prototype._getSource = function () {
   var self = this
   
-  InputManager.chooseDevice(function (stream) {
+  self.inputManager.chooseDevice(function (err, stream) {
+    if (err) throw err
+    
     var newSource = new Source(stream, 'Source') // TODO: Use name of source
     
     self.scene.addSource(newSource)
