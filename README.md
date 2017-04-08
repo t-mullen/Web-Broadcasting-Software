@@ -36,7 +36,7 @@ or
 
 ## api
 
-### `var jump = new JumperStreamer(element, [opts])`
+### `var jump = new JumpStreamer(element, [opts])`
 
 `element` is a HTMLElement or CSS selector string. The display will attempt to fit inside this element.
 
