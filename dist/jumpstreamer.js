@@ -9686,8 +9686,8 @@ function SourceMover (source, output) {
   self.width = self.player.clientWidth
   self.height = self.player.clientHeight
   
-  self.outx = self.x + 1
-  self.outy = self.y + 1
+  self.outx = self.x + 2
+  self.outy = self.y + 2
   
   self.xRatio = self.output.width / self.player.clientWidth
   self.yRatio = self.output.height / self.player.clientHeight
@@ -9746,8 +9746,8 @@ SourceMover.prototype._onDragMove = function (event) {
   target.setAttribute('data-y', y)
   
   // update the source
-  self.outx = self.x + x + 1
-  self.outy = self.x + y + 1
+  self.outx = self.x + x + 2
+  self.outy = self.x + y + 2
 }
 
 SourceMover.prototype._onResizeMove = function (event) {
@@ -9771,8 +9771,8 @@ SourceMover.prototype._onResizeMove = function (event) {
   target.setAttribute('data-y', y)
   
   // update the source
-  self.outx = self.x + x + 1
-  self.outy = self.x + y + 1
+  self.outx = self.x + x + 2
+  self.outy = self.x + y + 2
   
   self.width = event.rect.width
   self.height = event.rect.height
