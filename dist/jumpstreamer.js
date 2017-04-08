@@ -11885,11 +11885,13 @@ SourceMover.prototype._onResizeMove = function (event) {
 SourceMover.prototype._setStyle = function (element) {
   var self = this
   
-  self.element.style.left = self.player.offsetLeft
-  self.element.style.top = self.player.offsetTop
-  
-  self.element.style.width = self.width
-  self.element.style.height = self.height
+  self.element.style = 
+    'left:'+self.player.offsetLeft+'px;'+
+    'top:'+self.player.offsetTop+'px;'+
+    'width:'+self.width+'px;'+
+    'height:'+self.height+'px;'
+
+  console.log(self.element)
 }
 
 SourceMover.prototype.draw = function (ctx, frame, next) {
