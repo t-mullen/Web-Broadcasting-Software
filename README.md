@@ -19,7 +19,8 @@ or
 ```html
 <div></div>
 <script>
-  var jump = new JumpStreamer('div') // Element or selector to place the UI in
+  var jump = new JumpStreamer('div') // Element or selector to place the UI
+  
   jump.on('stream', function (stream) {
     // stream is the MediaStream output
   })
