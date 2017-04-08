@@ -29,7 +29,7 @@
   overflow: hidden;
   text-align: center;
 }
-.JumpStreamer .view .video {
+.JumpStreamer .view video {
   height: 100%;
   display: inline-block;
   background: black;
