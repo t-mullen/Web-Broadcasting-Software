@@ -1,5 +1,7 @@
 # jumpstreamer
 
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)]
+
 Live broadcasting and recording software for the web, inspired by [OBS](https://obsproject.com/).  
 
 [Demo](https://rationalcoding.github.io/jumpstreamer/)
