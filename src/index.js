@@ -12,21 +12,21 @@ function JumpStreamer (element, opts) {
   if (typeof element === 'string') {
     element = document.querySelector(element)
   }
-  
+
   opts = opts || {}
-  
+
   opts.output = opts.output || {
-    width: 400*3,
-    height: 300*3,
+    width: 400 * 3,
+    height: 300 * 3,
     fps: 40
   }
   opts.inputs = opts.inputs || []
   opts.injectStyles = opts.injectStyles || true
-  
+
   if (opts.injectStyles) require('./../less/jumpstreamer.css')
-  
+
   self._display = new Display(element, opts)
-  
+
   self._display.on('stream', function (stream) {
     self.emit('stream', stream)
   })
@@ -34,5 +34,5 @@ function JumpStreamer (element, opts) {
     self.emit('stopstream')
   })
 }
-  
+
 module.exports = JumpStreamer

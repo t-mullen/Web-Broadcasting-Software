@@ -11,7 +11,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "standard --fix && tape test/*.js",
+    "test": "standard --fix src/* && tape test/*.js",
     "build": "browserify src/index.js -t browserify-css -s JumpStreamer -o dist/jumpstreamer.js"
   },
   "author": "Thomas Mullen",
