@@ -8,7 +8,9 @@ Live broadcasting and recording software for the web, inspired by [OBS](https://
 
 ## install
 
-`npm install --save jumpstreamer`
+```
+npm install --save jumpstreamer
+```
 
 or
 
