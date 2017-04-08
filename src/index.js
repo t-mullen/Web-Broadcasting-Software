@@ -13,6 +13,14 @@ function JumpStreamer (element, opts) {
     element = document.querySelector(element)
   }
   
+  opts = opts || {}
+  
+  opts.merger = opts.meger || {
+    width: 400*3,
+    height: 400*3,
+    fps: 40
+  }
+  
   self._display = new Display(element, opts)
   
   self._display.on('stream', function (stream) {

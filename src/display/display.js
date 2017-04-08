@@ -16,7 +16,7 @@ function Display (element, opts) {
   var self = this
   if (!(self instanceof Display)) return new Display()
   
-  self._merger = new VideoStreamMerger(opts)
+  self._merger = new VideoStreamMerger(opts.merger)
   self._merger.start()
   
   self.view = new View(opts) 

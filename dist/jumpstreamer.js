@@ -9678,6 +9678,8 @@ function SourceMover (source, output) {
   self.player = document.querySelector('.JumpStreamer .view video')
   
   self.id = source.id
+  self.output = output
+  self.destroyed = false
   
   self.x = 0
   self.y = 0
@@ -9687,17 +9689,10 @@ function SourceMover (source, output) {
   self.outx = self.x
   self.outy = self.y
   
-  self.xRatio = output.width / self.player.clientWidth
-  self.yRatio = output.height / self.player.clientHeight
+  self.xRatio = self.output.width / self.player.clientWidth
+  self.yRatio = self.output.height / self.player.clientHeight
   
-  window.addEventListener('resize', function (e) {   
-    
-    self.xRatio = output.width / self.player.clientWidth
-    self.yRatio = output.height / self.player.clientHeight
-    
-    // TODO: Figure out how to recalc the transform
-    self._setStyle()
-  })
+  window.addEventListener('resize', self._onWindowResize.bind(self))
   
   self.element = h('div.mover')
   self._setStyle()
@@ -9709,17 +9704,25 @@ function SourceMover (source, output) {
   }).on('resizemove', self._onResizeMove.bind(self))
 }
 
-SourceMover.prototype.focus = function (){
+SourceMover.prototype._onWindowResize = function () {
   var self = this
   
-  console.log('focus', self.element)
+  if (self.destroyed) return
+  
+  self.xRatio = self.output.width / self.player.clientWidth
+  self.yRatio = self.output.height / self.player.clientHeight
+    
+  // TODO: Figure out how to recalc the transform
+  self._setStyle()
+}
+
+SourceMover.prototype.focus = function () {
+  var self = this
   self.element.style.display = ''
 }
 
 SourceMover.prototype.blur = function (){
   var self = this
-
-  console.log('blur', self.element)
   self.element.style.display = 'none'
 }
 
@@ -9784,6 +9787,8 @@ SourceMover.prototype._setStyle = function (element) {
 SourceMover.prototype.draw = function (ctx, frame, next) {
   var self = this
   
+  if (self.destroyed) return next()
+
   ctx.drawImage(frame, self.outx * self.xRatio, self.outy * self.yRatio, self.width * self.xRatio, self.height * self.yRatio)
   
   next()
@@ -9805,12 +9810,15 @@ SourceMover.prototype.destroy = function () {
   self.element.parentElement.removeChild(self.element)
   
   self.element = null
+  self.output = null
+  self.id = null
   self.x = null
   self.y = null
   self.width = null
   self.height = null
   self.xRatio = null
   self.yRatio = null
+  self.destroyed = true
 }
   
 module.exports = SourceMover
@@ -9833,7 +9841,7 @@ function Display (element, opts) {
   var self = this
   if (!(self instanceof Display)) return new Display()
   
-  self._merger = new VideoStreamMerger(opts)
+  self._merger = new VideoStreamMerger(opts.merger)
   self._merger.start()
   
   self.view = new View(opts) 
@@ -10178,6 +10186,14 @@ function JumpStreamer (element, opts) {
     element = document.querySelector(element)
   }
   
+  opts = opts || {}
+  
+  opts.merger = opts.meger || {
+    width: 400*3,
+    height: 400*3,
+    fps: 40
+  }
+  
   self._display = new Display(element, opts)
   
   self._display.on('stream', function (stream) {
@@ -10228,7 +10244,6 @@ function Scene (output, opts) {
   opts.height = opts.height || 400*3
   
   self.sources = []
-  self._movers = []
   
   self._output = output
 }
@@ -10237,13 +10252,13 @@ Scene.prototype.addSource = function (source) {
   var self = this
   
   var mover = new SourceMover(source, self._output)
+  source.mover = mover
   
   self._output.addStream(source.stream, {
     draw: mover.draw.bind(mover)
   })
   
   self.sources.push(source)
-  self._movers.push(mover)
   
   self.emit('mover', mover)
 }
@@ -10251,16 +10266,9 @@ Scene.prototype.addSource = function (source) {
 Scene.prototype.removeSource = function (source) {
   var self = this
   
-  for (var i=0; i<self._movers.length; i++) {
-    if (self._movers[i].id === source.id) {
-      self._movers[i].destroy()
-      self._movers.splice(i, 1)
-      i--
-    }
-  }
-  
   for (var i=0; i<self.sources.length; i++) {
     if (self.sources[i].id === source.id) {
+      self.sources[i].destroy()
       self.sources.splice(i, 1)
       i--
     }
@@ -10272,11 +10280,11 @@ Scene.prototype.removeSource = function (source) {
 Scene.prototype.focusSource = function (source) {
   var self = this
   
-  for (var i=0; i<self._movers.length; i++) {
-    if (source && self._movers[i].id === source.id) {
-      self._movers[i].focus()
+  for (var i=0; i<self.sources.length; i++) {
+    if (source && self.sources[i].id === source.id) {
+      self.sources[i].mover.focus()
     } else {
-      self._movers[i].blur()
+      self.sources[i].mover.blur()
     }
   }
 }
@@ -10284,38 +10292,31 @@ Scene.prototype.focusSource = function (source) {
 Scene.prototype.show = function () {
   var self = this
   
-  for (var i=0; i<self._movers.length; i++) {
-    self._movers[i].show()
-  }
-  
   for (var i=0; i<self.sources.length; i++) {
-    self._output.addStream(self.sources[i].stream)
+    self._output.addStream(self.sources[i].stream, {
+      draw: self.sources[i].mover.draw.bind(self.sources[i].mover)
+    })
+    self.sources[i].mover.show()
   }
 }
 
 Scene.prototype.hide = function () {
   var self = this
   
-  for (var i=0; i<self._movers.length; i++) {
-    self._movers[i].hide()
-  }
-  
   for (var i=0; i<self.sources.length; i++) {
     self._output.removeStream(self.sources[i].stream)
+    self.sources[i].mover.hide()
   }
 }
 
 Scene.prototype.destroy = function () {
   var self = this
   
-  for (var i=0; i<self._movers.length; i++) {
-    if (self._movers[i].id === source.id) {
-      self._movers[i].destroy()
-    }
+  for (var i=0; i<self.sources.length; i++) {
+    self.sources[i].destroy()
   }
   
   self.sources = []
-  self._movers = []
 }
   
 module.exports = Scene
@@ -10334,6 +10335,17 @@ function Source (stream, name) {
   self.stream = stream || null
   self.id = stream.id
   self.name = name || 'Source'
+  self.mover = null
+}
+
+Source.prototype.destroy = function () {
+  var self = this
+  
+  self.stream = null
+  self.id = null
+  self.name = null
+  if (self.mover) self.mover.destroy()
+  self.mover = null
 }
   
 module.exports = Source

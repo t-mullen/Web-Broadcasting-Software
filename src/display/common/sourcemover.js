@@ -14,6 +14,8 @@ function SourceMover (source, output) {
   self.player = document.querySelector('.JumpStreamer .view video')
   
   self.id = source.id
+  self.output = output
+  self.destroyed = false
   
   self.x = 0
   self.y = 0
@@ -23,17 +25,10 @@ function SourceMover (source, output) {
   self.outx = self.x
   self.outy = self.y
   
-  self.xRatio = output.width / self.player.clientWidth
-  self.yRatio = output.height / self.player.clientHeight
+  self.xRatio = self.output.width / self.player.clientWidth
+  self.yRatio = self.output.height / self.player.clientHeight
   
-  window.addEventListener('resize', function (e) {   
-    
-    self.xRatio = output.width / self.player.clientWidth
-    self.yRatio = output.height / self.player.clientHeight
-    
-    // TODO: Figure out how to recalc the transform
-    self._setStyle()
-  })
+  window.addEventListener('resize', self._onWindowResize.bind(self))
   
   self.element = h('div.mover')
   self._setStyle()
@@ -45,17 +40,25 @@ function SourceMover (source, output) {
   }).on('resizemove', self._onResizeMove.bind(self))
 }
 
-SourceMover.prototype.focus = function (){
+SourceMover.prototype._onWindowResize = function () {
   var self = this
   
-  console.log('focus', self.element)
+  if (self.destroyed) return
+  
+  self.xRatio = self.output.width / self.player.clientWidth
+  self.yRatio = self.output.height / self.player.clientHeight
+    
+  // TODO: Figure out how to recalc the transform
+  self._setStyle()
+}
+
+SourceMover.prototype.focus = function () {
+  var self = this
   self.element.style.display = ''
 }
 
 SourceMover.prototype.blur = function (){
   var self = this
-
-  console.log('blur', self.element)
   self.element.style.display = 'none'
 }
 
@@ -120,6 +123,8 @@ SourceMover.prototype._setStyle = function (element) {
 SourceMover.prototype.draw = function (ctx, frame, next) {
   var self = this
   
+  if (self.destroyed) return next()
+
   ctx.drawImage(frame, self.outx * self.xRatio, self.outy * self.yRatio, self.width * self.xRatio, self.height * self.yRatio)
   
   next()
@@ -141,12 +146,15 @@ SourceMover.prototype.destroy = function () {
   self.element.parentElement.removeChild(self.element)
   
   self.element = null
+  self.output = null
+  self.id = null
   self.x = null
   self.y = null
   self.width = null
   self.height = null
   self.xRatio = null
   self.yRatio = null
+  self.destroyed = true
 }
   
 module.exports = SourceMover

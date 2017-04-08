@@ -12,6 +12,17 @@ function Source (stream, name) {
   self.stream = stream || null
   self.id = stream.id
   self.name = name || 'Source'
+  self.mover = null
+}
+
+Source.prototype.destroy = function () {
+  var self = this
+  
+  self.stream = null
+  self.id = null
+  self.name = null
+  if (self.mover) self.mover.destroy()
+  self.mover = null
 }
   
 module.exports = Source
