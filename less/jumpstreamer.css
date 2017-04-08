@@ -111,6 +111,14 @@
   width: 100%;
   margin-bottom: 5px;
 }
+.JumpStreamer .toolbar .controls button.stopped {
+  background-color: #2ddd5c;
+  color: white;
+}
+.JumpStreamer .toolbar .controls button.started {
+  background-color: #ed2d2d;
+  color: white;
+}
 .JumpStreamer .list .select {
   background: white;
   height: 100px;

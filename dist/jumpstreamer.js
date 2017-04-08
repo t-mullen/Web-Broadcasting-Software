@@ -9909,10 +9909,11 @@ function Controls () {
   if (!(self instanceof Controls)) return new Controls()
 
   self._startedStream = false
+  self._startButton = h('button.stopped', {onclick: self.clickStream.bind(self)}, 'Start Streaming')
   
   self.element = h('div.controls',
                     h('br'),
-                    h('button', {onclick: self.clickStream}, 'Start Streaming')//,
+                    self._startButton//,
                     //h('button', {onclick: self.clickRecord}, 'Start Recording'),
                     //h('button', {onclick: self.clickSettings}, 'Settings')
                   )
@@ -9922,8 +9923,12 @@ Controls.prototype.clickStream = function () {
   var self = this
   
   if (self._startedStream) {
+    self._startButton.innerHTML = 'Start Streaming'
+    self._startButton.className = 'stopped'
     self.emit('stopstream')
   } else {
+    self._startButton.innerHTML = 'Stop Streaming'
+    self._startButton.className = 'started'
     self.emit('stream')
   }
   
