@@ -15,9 +15,9 @@ function JumpStreamer (element, opts) {
   
   opts = opts || {}
   
-  opts.merger = opts.meger || {
+  opts.output = opts.output || {
     width: 400*3,
-    height: 400*3,
+    height: 300*3,
     fps: 40
   }
   
