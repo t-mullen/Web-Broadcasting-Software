@@ -2,7 +2,6 @@ var h = require('hyperscript')
 
 function View () {
   var self = this
-  if (!(self instanceof View)) return new View()
 
   self.video = h('video', {
     autoplay: true,

@@ -8,7 +8,6 @@ inherits(List, EventEmitter)
 
 function List () {
   var self = this
-  if (!(self instanceof List)) return new List()
   
   self._select = h('div.select')
   

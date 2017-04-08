@@ -9,7 +9,6 @@ inherits(SourceMover, EventEmitter)
 
 function SourceMover (source, output) {
   var self = this
-  if (!(self instanceof SourceMover)) return new SourceMover()
 
   self.player = document.querySelector('.JumpStreamer .view video')
   

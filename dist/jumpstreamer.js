@@ -11544,7 +11544,6 @@ inherits(List, EventEmitter)
 
 function List () {
   var self = this
-  if (!(self instanceof List)) return new List()
   
   self._select = h('div.select')
   
@@ -11748,7 +11747,6 @@ var h = require('hyperscript')
 
 function ListOption (index, text, value) {
   var self = this
-  if (!(self instanceof ListOption)) return new ListOption()
 
   self.index = index
   self.text = text
@@ -11780,7 +11778,6 @@ inherits(SourceMover, EventEmitter)
 
 function SourceMover (source, output) {
   var self = this
-  if (!(self instanceof SourceMover)) return new SourceMover()
 
   self.player = document.querySelector('.JumpStreamer .view video')
   
@@ -11950,7 +11947,6 @@ inherits(Display, EventEmitter)
 
 function Display (element, opts) {
   var self = this
-  if (!(self instanceof Display)) return new Display()
   
   self._merger = new VideoStreamMerger(opts.output)
   self._merger.start()
@@ -12017,7 +12013,6 @@ inherits(Controls, EventEmitter)
 
 function Controls () {
   var self = this
-  if (!(self instanceof Controls)) return new Controls()
 
   self._startedStream = false
   self._startButton = h('button.stopped', {onclick: self.clickStream.bind(self)}, 'Start Streaming')
@@ -12066,8 +12061,6 @@ var h = require('hyperscript')
 
 function Mixer () {
   var self = this
-  if (!(self instanceof Mixer)) return new Mixer()
-
   
   self.element = h('div.mixer',
                   h('label', 'Mixer'))
@@ -12094,7 +12087,6 @@ inherits(Scenes, EventEmitter)
 
 function Scenes (output) {
   var self = this
-  if (!(self instanceof Scenes)) return new Scenes()
 
   self.list = new List()
   self.list.on('add', self._createScene.bind(self))
@@ -12168,7 +12160,6 @@ inherits(Sources, EventEmitter)
 
 function Sources (opts) {
   var self = this
-  if (!(self instanceof Sources)) return new Sources()
 
   self.list = new List()
   
@@ -12252,7 +12243,6 @@ var h = require('hyperscript')
 
 function Transitions () {
   var self = this
-  if (!(self instanceof Transitions)) return new Transitions()
 
   self.element = h('div.transitions',
                   h('label', 'Scene Transitions'))
@@ -12269,7 +12259,6 @@ var h = require('hyperscript')
 
 function View () {
   var self = this
-  if (!(self instanceof View)) return new View()
 
   self.video = h('video', {
     autoplay: true,
@@ -12304,26 +12293,26 @@ inherits(JumpStreamer, EventEmitter)
 
 function JumpStreamer (element, opts) {
   var self = this
-  if (!(self instanceof JumpStreamer)) return new JumpStreamer()
+  if (!(self instanceof JumpStreamer)) return new JumpStreamer(element, opts)
 
   if (typeof element === 'string') {
     element = document.querySelector(element)
   }
-  
+
   opts = opts || {}
-  
+
   opts.output = opts.output || {
-    width: 400*3,
-    height: 300*3,
+    width: 400 * 3,
+    height: 300 * 3,
     fps: 40
   }
   opts.inputs = opts.inputs || []
   opts.injectStyles = opts.injectStyles || true
-  
+
   if (opts.injectStyles) require('./../less/jumpstreamer.css')
-  
+
   self._display = new Display(element, opts)
-  
+
   self._display.on('stream', function (stream) {
     self.emit('stream', stream)
   })
@@ -12331,8 +12320,9 @@ function JumpStreamer (element, opts) {
     self.emit('stopstream')
   })
 }
-  
+
 module.exports = JumpStreamer
+
 },{"./../less/jumpstreamer.css":1,"./display/display":32,"events":44,"inherits":14}],40:[function(require,module,exports){
 var vex = require('vex-js')
 vex.registerPlugin(require('vex-dialog'))
@@ -12347,7 +12337,6 @@ var getusermedia = require('getusermedia')
 
 function InputManager (opts) {
   var self = this
-  if (!(self instanceof InputManager)) return new InputManager()
 
   self.inputs = opts.inputs
   
@@ -12413,7 +12402,6 @@ inherits(Scene, EventEmitter)
 
 function Scene (output, opts) {
   var self = this
-  if (!(self instanceof Scene)) return new Scene()
   
   opts = opts || {}
   opts.width = opts.width || 400*3
@@ -12506,7 +12494,6 @@ inherits(Source, EventEmitter)
 
 function Source (stream, name) {
   var self = this
-  if (!(self instanceof Source)) return new Source()
 
   self.stream = stream || null
   self.id = stream.id

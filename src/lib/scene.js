@@ -9,7 +9,6 @@ inherits(Scene, EventEmitter)
 
 function Scene (output, opts) {
   var self = this
-  if (!(self instanceof Scene)) return new Scene()
   
   opts = opts || {}
   opts.width = opts.width || 400*3

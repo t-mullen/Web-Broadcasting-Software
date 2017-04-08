@@ -7,7 +7,7 @@ inherits(JumpStreamer, EventEmitter)
 
 function JumpStreamer (element, opts) {
   var self = this
-  if (!(self instanceof JumpStreamer)) return new JumpStreamer()
+  if (!(self instanceof JumpStreamer)) return new JumpStreamer(element, opts)
 
   if (typeof element === 'string') {
     element = document.querySelector(element)

@@ -11,7 +11,6 @@ var getusermedia = require('getusermedia')
 
 function InputManager (opts) {
   var self = this
-  if (!(self instanceof InputManager)) return new InputManager()
 
   self.inputs = opts.inputs
   

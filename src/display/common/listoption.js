@@ -2,7 +2,6 @@ var h = require('hyperscript')
 
 function ListOption (index, text, value) {
   var self = this
-  if (!(self instanceof ListOption)) return new ListOption()
 
   self.index = index
   self.text = text

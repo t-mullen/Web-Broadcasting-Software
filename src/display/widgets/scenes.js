@@ -12,7 +12,6 @@ inherits(Scenes, EventEmitter)
 
 function Scenes (output) {
   var self = this
-  if (!(self instanceof Scenes)) return new Scenes()
 
   self.list = new List()
   self.list.on('add', self._createScene.bind(self))

@@ -6,7 +6,6 @@ inherits(Controls, EventEmitter)
 
 function Controls () {
   var self = this
-  if (!(self instanceof Controls)) return new Controls()
 
   self._startedStream = false
   self._startButton = h('button.stopped', {onclick: self.clickStream.bind(self)}, 'Start Streaming')

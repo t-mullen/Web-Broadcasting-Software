@@ -10,7 +10,6 @@ inherits(Sources, EventEmitter)
 
 function Sources (opts) {
   var self = this
-  if (!(self instanceof Sources)) return new Sources()
 
   self.list = new List()
   

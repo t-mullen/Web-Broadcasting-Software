@@ -7,7 +7,6 @@ inherits(Source, EventEmitter)
 
 function Source (stream, name) {
   var self = this
-  if (!(self instanceof Source)) return new Source()
 
   self.stream = stream || null
   self.id = stream.id
