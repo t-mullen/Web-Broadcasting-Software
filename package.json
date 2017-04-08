@@ -5,7 +5,7 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/RationalCoding/jumpstreamer.git"
-  }
+  },
   "main": "src/index.js",
   "directories": {
     "test": "test"
