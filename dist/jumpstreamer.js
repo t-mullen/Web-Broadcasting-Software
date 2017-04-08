@@ -9910,9 +9910,13 @@ function Controls () {
 
   self._startedStream = false
   self._startButton = h('button.stopped', {onclick: self.clickStream.bind(self)}, 'Start Streaming')
+  self._startButton.style.marginTop = '10px'
+  
+  var label = h('label')
+  label.innerHTML = '&nbsp;'
   
   self.element = h('div.controls',
-                    h('br'),
+                    label,
                     self._startButton//,
                     //h('button', {onclick: self.clickRecord}, 'Start Recording'),
                     //h('button', {onclick: self.clickSettings}, 'Settings')
