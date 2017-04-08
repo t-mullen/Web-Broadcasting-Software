@@ -20,8 +20,10 @@ function JumpStreamer (element, opts) {
     height: 300*3,
     fps: 40
   }
-  
   opts.inputs = opts.inputs || []
+  opts.injectStyles = opts.injectStyles || true
+  
+  if (opts.injectStyles) require('./../less/jumpstreamer.css')
   
   self._display = new Display(element, opts)
   
