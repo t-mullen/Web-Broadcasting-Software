@@ -2,6 +2,10 @@
   "name": "jumpstream",
   "version": "1.0.0",
   "description": "A live video editor for the web!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/RationalCoding/jumpstreamer.git"
+  }
   "main": "src/index.js",
   "directories": {
     "test": "test"
