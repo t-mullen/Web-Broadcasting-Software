@@ -63,7 +63,32 @@
       height: 100px;
       width: 100px;
       position: absolute;
-      border: solid red 2px;
+      border: solid #2651e0 2px;
+      
+      .corner {
+        pointer-events: none;
+        width: 0px;
+        height: 0px;
+        border-radius: 100%;
+        border: solid #2651e0 6px;
+        position: absolute;
+        
+        &.top {
+          top: -6px;
+        }
+        
+        &.left {
+          left: -7px;
+        }
+        
+        &.bottom {
+          top: calc(100% - 2px);
+        }
+        
+        &.right {
+          left: calc(100% - 1px);
+        }
+      }
     }
   }
   
