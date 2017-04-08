@@ -3,12 +3,14 @@
 @view-background: #4C4C4C;
 @detail: #4C4C4C;
 
+@transitions: ~"only screen and (min-width : 620px)";
+@mixer: ~"only screen and (min-width : 800px)";
+
 .JumpStreamer {
   height: 100%;
   width: 100%;
   position: relative;
   background: @background;
-  min-width: 800px;
   font-size: 14px;
   font-weight: 500;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
@@ -98,11 +100,21 @@
     
     .mixer {
       flex-grow: 1;
+      display: none;
+      
+      @media @mixer {
+        display: inherit;
+      }
     }
     
     .transitions {
       float: right;
       width: 150px;
+      display: none;
+      
+      @media @transitions {
+        display: inherit;
+      }
     }
     
     .controls {

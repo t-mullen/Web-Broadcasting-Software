@@ -4,7 +4,6 @@
   width: 100%;
   position: relative;
   background: #ececec;
-  min-width: 800px;
   font-size: 14px;
   font-weight: 500;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
@@ -86,10 +85,22 @@
 }
 .JumpStreamer .toolbar .mixer {
   flex-grow: 1;
+  display: none;
+}
+@media only screen and (min-width : 800px) {
+  .JumpStreamer .toolbar .mixer {
+    display: inherit;
+  }
 }
 .JumpStreamer .toolbar .transitions {
   float: right;
   width: 150px;
+  display: none;
+}
+@media only screen and (min-width : 620px) {
+  .JumpStreamer .toolbar .transitions {
+    display: inherit;
+  }
 }
 .JumpStreamer .toolbar .controls {
   float: right;
