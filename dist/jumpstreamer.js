@@ -12430,6 +12430,8 @@ Scene.prototype.addSource = function (source) {
 Scene.prototype.removeSource = function (source) {
   var self = this
   
+  self._output.removeStream(source.stream)
+  
   for (var i=0; i<self.sources.length; i++) {
     if (self.sources[i].id === source.id) {
       self.sources[i].destroy()
@@ -12437,8 +12439,6 @@ Scene.prototype.removeSource = function (source) {
       i--
     }
   }
-  
-  self._output.removeStream(source.stream)
 }
 
 Scene.prototype.focusSource = function (source) {
