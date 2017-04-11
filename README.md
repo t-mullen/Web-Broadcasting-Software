@@ -4,7 +4,9 @@
 
 Live broadcasting and recording software for the web, inspired by [OBS](https://obsproject.com/).  
 
-[Demo](https://rationalcoding.github.io/jumpstreamer/)
+[Demo](https://rationalcoding.github.io/jumpstreamer/) 
+
+(If you've never used similar software, click "+" on scenes, then "+" on sources. Select a media device. You can then drag and resize that video, or add more videos to make a composite.)
 
 ## install
 
