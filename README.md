@@ -1,10 +1,12 @@
-# Web Broadcasting Software (WBS)
+# Web Broadcasting Software (WBS) (Work In Progress)
 
 ![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)
 
-Live broadcasting and recording software for the web, inspired by [OBS](https://obsproject.com/).  
+Live broadcasting and recording software for the web, inspired by [OBS](https://obsproject.com/). WBS allows broadcasters to record video and audio, create video composites, apply audiovisual effects and eventually output to a broadcast transport (which is not within the scope of this project)... all within the browser.
 
 [Demo](https://rationalcoding.github.io/Web-Broadcasting-Software/) 
+
+The UI and functionality of WBS is modeled around Open Broadcasting Software (OBS), but can be easily modified to suit less technical users.
 
 (If you've never used similar software, click "+" on scenes, then "+" on sources. Select a media device. You can then drag and resize that video, or add more videos to make a composite.)
 
@@ -83,7 +85,7 @@ For example, here is one of the default devices:
 ## notes
 `wbs` does not **broadcast** your video, it simply gives you an output MediaStream to do with as you wish.
 
-You could send it over a WebRTC connection, record it as a file, send to to a proxy RTMP server, pipe it through FFMPEG... whatever!
+You could send it over a WebRTC connection, record it as a file, send to to a proxy RTMP server, pipe it through FFMPEG... anything.
 
 ## todo
 - [ ] Audio mixer
