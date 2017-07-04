@@ -11,7 +11,7 @@ Live broadcasting and recording software for the web, inspired by [OBS](https://
 ## install
 
 ```html
-<script src="jumpstreamer.js"></script>
+<script src="wbs.js"></script>
 ```
 
 ## usage
@@ -19,12 +19,12 @@ Live broadcasting and recording software for the web, inspired by [OBS](https://
 ```html
 <div></div>
 <script>
-  var jump = new JumpStreamer('div') // Element or selector to place the UI
+  var wbs = new WBS('div') // Element or selector to place the UI
   
-  jump.on('stream', function (stream) {
+  wbs.on('stream', function (stream) {
     // stream is the MediaStream output
   })
-  jump.on('stopstream', function () {
+  wbs.on('stopstream', function () {
     // called when the stream stops
   })
 </script>
@@ -32,7 +32,7 @@ Live broadcasting and recording software for the web, inspired by [OBS](https://
 
 ## api
 
-### `var jump = new JumpStreamer(element, [opts])`
+### `var wbs = new WBS(element, [opts])`
 
 `element` is a HTMLElement or CSS selector string. The display will attempt to fit inside this element.
 
@@ -45,7 +45,7 @@ Optional `opts` is a configuration object that will override the following defau
     height: 900,
     fps: 40       // frames per second of the output stream
   },
-  injectStyles: true, // whether to inject the JumpStreamer css
+  injectStyles: true, // whether to inject the WBS css
   inputs: [array of input devices - see below]
 }
 ```
@@ -81,7 +81,7 @@ For example, here is one of the default devices:
 ```
 
 ## notes
-`jumpstreamer` does not **broadcast** your video, it simply gives you an output MediaStream to do with as you wish.
+`wbs` does not **broadcast** your video, it simply gives you an output MediaStream to do with as you wish.
 
 You could send it over a WebRTC connection, record it as a file, send to to a proxy RTMP server, pipe it through FFMPEG... whatever!
 
