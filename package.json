@@ -1,10 +1,10 @@
 {
-  "name": "jumpstreamer",
+  "name": "wbs",
   "version": "1.0.5",
-  "description": "A live video editor for the web!",
+  "description": "Broadcasting Software for the Web",
   "repository": {
     "type": "git",
-    "url": "git://github.com/RationalCoding/jumpstreamer.git"
+    "url": "git://github.com/RationalCoding/Web-Broadcasting-Software.git"
   },
   "main": "src/index.js",
   "directories": {
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "standard --fix src/* && tape test/*.js",
-    "build": "browserify src/index.js -t browserify-css -s JumpStreamer -o dist/jumpstreamer.js"
+    "build": "browserify src/index.js -t browserify-css -s WBS -o dist/wbs.js"
   },
   "author": "Thomas Mullen",
   "license": "MIT",

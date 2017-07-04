@@ -3,11 +3,11 @@ var inherits = require('inherits')
 
 var Display = require('./display/display')
 
-inherits(JumpStreamer, EventEmitter)
+inherits(WBS, EventEmitter)
 
-function JumpStreamer (element, opts) {
+function WBS (element, opts) {
   var self = this
-  if (!(self instanceof JumpStreamer)) return new JumpStreamer(element, opts)
+  if (!(self instanceof WBS)) return new WBS(element, opts)
 
   if (typeof element === 'string') {
     element = document.querySelector(element)
@@ -23,7 +23,7 @@ function JumpStreamer (element, opts) {
   opts.inputs = opts.inputs || []
   opts.injectStyles = opts.injectStyles || true
 
-  if (opts.injectStyles) require('./../less/jumpstreamer.css')
+  if (opts.injectStyles) require('./../less/wbs.css')
 
   self._display = new Display(element, opts)
 
@@ -35,4 +35,4 @@ function JumpStreamer (element, opts) {
   })
 }
 
-module.exports = JumpStreamer
+module.exports = WBS
