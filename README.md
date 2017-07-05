@@ -90,3 +90,4 @@ You could send it over a WebRTC connection, record it as a file, send to to a pr
 ## todo
 - [ ] Audio mixer
 - [ ] Scene transitions
+- [ ] Visual effect API
