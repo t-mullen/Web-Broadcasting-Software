@@ -14,7 +14,7 @@ If you've never used similar software:
   3. Select a media device. 
   4. You can then drag and resize that video, or add more videos to make a composite.
   5. Switch between scenes and active videos by click on them.
-  6. "Broadcast" emits an output MediaStream that can be sent to a broadcast transport.
+  6. "Start Streaming" emits an output MediaStream that can be used in other modules.
 
 ## install
 
@@ -30,11 +30,11 @@ If you've never used similar software:
   var wbs = new WBS('div') // Element or selector to place the UI
   
   wbs.on('stream', function (stream) {
-    // fired when user presses "Broadcast"
+    // fired when user presses "Start Streaming"
     // stream is the MediaStream output
   })
   wbs.on('stopstream', function () {
-    // called when the user stops the broadcast
+    // called when the user presses "Stop Streaming"
   })
 </script>
 ```
