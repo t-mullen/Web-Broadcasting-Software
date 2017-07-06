@@ -8,7 +8,7 @@ Live broadcasting and recording software for the web, inspired by [OBS](https://
 
 The UI and functionality of WBS is modeled around Open Broadcasting Software (OBS), but can be easily modified to suit less technical users.
 
-(If you've never used similar software, click "+" on scenes, then "+" on sources. Select a media device. You can then drag and resize that video, or add more videos to make a composite.)
+(If you've never used similar software, click "+" on scenes, then "+" on sources (you may need to wait 2-3 seconds the first time). Select a media device. You can then drag and resize that video, or add more videos to make a composite.)
 
 ## install
 
