@@ -30,10 +30,11 @@ If you've never used similar software:
   var wbs = new WBS('div') // Element or selector to place the UI
   
   wbs.on('stream', function (stream) {
+    // fired when user presses "Broadcast"
     // stream is the MediaStream output
   })
   wbs.on('stopstream', function () {
-    // called when the stream stops
+    // called when the user stops the broadcast
   })
 </script>
 ```
