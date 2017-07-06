@@ -34,7 +34,7 @@ If you've never used similar software:
     // stream is the MediaStream output
   })
   wbs.on('stopstream', function () {
-    // called when the user presses "Stop Streaming"
+    // fired when the user presses "Stop Streaming"
   })
 </script>
 ```
