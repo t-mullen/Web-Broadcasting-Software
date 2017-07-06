@@ -4,11 +4,17 @@
 
 Live broadcasting and recording software for the web, inspired by [OBS](https://obsproject.com/). WBS allows broadcasters to record video and audio, create video composites, apply audiovisual effects and eventually output to a broadcast transport (which is not within the scope of this project)... all within the browser.
 
-[Demo](https://rationalcoding.github.io/Web-Broadcasting-Software/) 
-
 The UI and functionality of WBS is modeled around Open Broadcasting Software (OBS), but can be easily modified to suit less technical users.
 
-(If you've never used similar software, click "+" on scenes, then "+" on sources (you may need to wait 2-3 seconds the first time). Select a media device. You can then drag and resize that video, or add more videos to make a composite.)
+[Try the Live Demo](https://rationalcoding.github.io/Web-Broadcasting-Software/) 
+
+If you've never used similar software:
+  1. Click "+" on scenes.
+  2. Click "+" on sources (you may need to wait 2-3 seconds the first time). 
+  3. Select a media device. 
+  4. You can then drag and resize that video, or add more videos to make a composite.
+  5. Switch between scenes and active videos by click on them.
+  6. "Broadcast" emits an output MediaStream that can be sent to a broadcast transport.
 
 ## install
 
