@@ -112,6 +112,21 @@
     display: inherit;
   }
 }
+.JumpStreamer .toolbar .mixer > label {
+  position: absolute;
+}
+.JumpStreamer .toolbar .mixer > div {
+  margin-top: 27px;
+  width: 100%;
+  height: 125px;
+  overflow-y: scroll;
+  background: white;
+  padding: 5px;
+}
+.JumpStreamer .toolbar .mixer .meter {
+  height: 5px;
+  background: #00be00;
+}
 .JumpStreamer .toolbar .transitions {
   float: right;
   width: 150px;

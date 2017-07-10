@@ -28,6 +28,7 @@
     "inherits": "^2.0.3",
     "interactjs": "^1.2.8",
     "vex-js": "^3.1.1",
-    "video-stream-merger": "^2.0.5"
+    "video-stream-merger": "^2.2.0",
+    "volume-meter": "^2.0.1"
   }
 }

@@ -16,10 +16,19 @@ function InputManager (opts) {
   
   // Add default inputs
   self.inputs.push({
-    name: 'Video Camera',
+    name: 'Default Video Camera',
     getStream: function (cb) {
       getusermedia({audio:true, video:true}, function (err, stream) {
-        cb(err, 'Video Camera', stream)
+        cb(err, 'Default Video Camera', stream)
+      })
+    }
+  })
+  
+  self.inputs.push({
+    name: 'Default Microphone',
+    getStream: function (cb) {
+      getusermedia({audio:true, video:false}, function (err, stream) {
+        cb(err, 'Default Microphone', stream)
       })
     }
   })

@@ -2,6 +2,7 @@ var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
 
 var Display = require('./display/display')
+var mixer = require('./lib/mixer')
 
 inherits(WBS, EventEmitter)
 
@@ -14,11 +15,15 @@ function WBS (element, opts) {
   }
 
   opts = opts || {}
+  
+  var audioContext = new AudioContext()
 
+  mixer.setAudioContext(audioContext)
   opts.output = opts.output || {
     width: 400 * 3,
     height: 300 * 3,
-    fps: 40
+    fps: 40,
+    audioContext: audioContext
   }
   opts.inputs = opts.inputs || []
   opts.injectStyles = opts.injectStyles || true

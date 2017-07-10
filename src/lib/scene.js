@@ -4,10 +4,11 @@ var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
 
 var SourceMover = require('./../display/common/sourcemover')
+var mixer = require('./mixer')
 
 inherits(Scene, EventEmitter)
 
-function Scene (output, opts) {
+function Scene (output, mixerEffect, opts) {
   var self = this
   
   opts = opts || {}
@@ -17,6 +18,7 @@ function Scene (output, opts) {
   self.sources = []
   
   self._output = output
+  self._mixerEffect = mixerEffect
 }
 
 Scene.prototype.addSource = function (source) {
@@ -26,7 +28,8 @@ Scene.prototype.addSource = function (source) {
   source.mover = mover
   
   self._output.addStream(source.stream, {
-    draw: mover.draw.bind(mover)
+    draw: mover.draw.bind(mover),
+    audioEffect: mixer.addStream.bind(mixer, source)
   })
   
   self.sources.push(source)
@@ -38,6 +41,7 @@ Scene.prototype.removeSource = function (source) {
   var self = this
   
   self._output.removeStream(source.stream)
+  mixer.removeStream(source)
   
   for (var i=0; i<self.sources.length; i++) {
     if (self.sources[i].id === source.id) {
@@ -65,7 +69,8 @@ Scene.prototype.show = function () {
   
   for (var i=0; i<self.sources.length; i++) {
     self._output.addStream(self.sources[i].stream, {
-      draw: self.sources[i].mover.draw.bind(self.sources[i].mover)
+      draw: self.sources[i].mover.draw.bind(self.sources[i].mover),
+      audioEffect: mixer.addStream.bind(mixer, self.sources[i])
     })
     self.sources[i].mover.show()
   }
@@ -76,6 +81,7 @@ Scene.prototype.hide = function () {
   
   for (var i=0; i<self.sources.length; i++) {
     self._output.removeStream(self.sources[i].stream)
+    mixer.removeStream(self.sources[i])
     self.sources[i].mover.hide()
   }
 }

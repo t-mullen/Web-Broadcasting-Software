@@ -3,7 +3,7 @@ var css = "@keyframes vex-pulse {\n  0% {\n    -moz-box-shadow: inset 0 0 0 300p
 },{"browserify-css":5}],2:[function(require,module,exports){
 var css = "@keyframes vex-fadein {\n  0% {\n    opacity: 0;\n  }\n\n  100% {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes vex-fadein {\n  0% {\n    opacity: 0;\n  }\n\n  100% {\n    opacity: 1;\n  }\n}\n@-moz-keyframes vex-fadein {\n  0% {\n    opacity: 0;\n  }\n\n  100% {\n    opacity: 1;\n  }\n}\n@-ms-keyframes vex-fadein {\n  0% {\n    opacity: 0;\n  }\n\n  100% {\n    opacity: 1;\n  }\n}\n@-o-keyframes vex-fadein {\n  0% {\n    opacity: 0;\n  }\n\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes vex-fadeout {\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n}\n@-webkit-keyframes vex-fadeout {\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n}\n@-moz-keyframes vex-fadeout {\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n}\n@-ms-keyframes vex-fadeout {\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n}\n@-o-keyframes vex-fadeout {\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n}\n@keyframes vex-rotation {\n  0% {\n    transform: rotate(0deg);\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n  }\n\n  100% {\n    transform: rotate(359deg);\n    -webkit-transform: rotate(359deg);\n    -moz-transform: rotate(359deg);\n    -ms-transform: rotate(359deg);\n    -o-transform: rotate(359deg);\n  }\n}\n@-webkit-keyframes vex-rotation {\n  0% {\n    transform: rotate(0deg);\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n  }\n\n  100% {\n    transform: rotate(359deg);\n    -webkit-transform: rotate(359deg);\n    -moz-transform: rotate(359deg);\n    -ms-transform: rotate(359deg);\n    -o-transform: rotate(359deg);\n  }\n}\n@-moz-keyframes vex-rotation {\n  0% {\n    transform: rotate(0deg);\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n  }\n\n  100% {\n    transform: rotate(359deg);\n    -webkit-transform: rotate(359deg);\n    -moz-transform: rotate(359deg);\n    -ms-transform: rotate(359deg);\n    -o-transform: rotate(359deg);\n  }\n}\n@-ms-keyframes vex-rotation {\n  0% {\n    transform: rotate(0deg);\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n  }\n\n  100% {\n    transform: rotate(359deg);\n    -webkit-transform: rotate(359deg);\n    -moz-transform: rotate(359deg);\n    -ms-transform: rotate(359deg);\n    -o-transform: rotate(359deg);\n  }\n}\n@-o-keyframes vex-rotation {\n  0% {\n    transform: rotate(0deg);\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n  }\n\n  100% {\n    transform: rotate(359deg);\n    -webkit-transform: rotate(359deg);\n    -moz-transform: rotate(359deg);\n    -ms-transform: rotate(359deg);\n    -o-transform: rotate(359deg);\n  }\n}\n.vex,\n.vex *,\n.vex *:before,\n.vex *:after {\n  -moz-box-sizing: border-box;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.vex {\n  position: fixed;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  z-index: 1111;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n.vex-scrollbar-measure {\n  position: absolute;\n  top: -9999px;\n  width: 50px;\n  height: 50px;\n  overflow: scroll;\n}\n.vex-overlay {\n  background: #000;\n  filter: alpha(opacity=40);\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)\";\n}\n.vex-overlay {\n  animation: vex-fadein 0.5s;\n  -webkit-animation: vex-fadein 0.5s;\n  -moz-animation: vex-fadein 0.5s;\n  -ms-animation: vex-fadein 0.5s;\n  -o-animation: vex-fadein 0.5s;\n  -webkit-backface-visibility: hidden;\n  position: fixed;\n  background: rgba(0, 0, 0, 0.4);\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n.vex.vex-closing .vex-overlay {\n  animation: vex-fadeout 0.5s;\n  -webkit-animation: vex-fadeout 0.5s;\n  -moz-animation: vex-fadeout 0.5s;\n  -ms-animation: vex-fadeout 0.5s;\n  -o-animation: vex-fadeout 0.5s;\n  -webkit-backface-visibility: hidden;\n}\n.vex-content {\n  animation: vex-fadein 0.5s;\n  -webkit-animation: vex-fadein 0.5s;\n  -moz-animation: vex-fadein 0.5s;\n  -ms-animation: vex-fadein 0.5s;\n  -o-animation: vex-fadein 0.5s;\n  -webkit-backface-visibility: hidden;\n  background: #fff;\n}\n.vex.vex-closing .vex-content {\n  animation: vex-fadeout 0.5s;\n  -webkit-animation: vex-fadeout 0.5s;\n  -moz-animation: vex-fadeout 0.5s;\n  -ms-animation: vex-fadeout 0.5s;\n  -o-animation: vex-fadeout 0.5s;\n  -webkit-backface-visibility: hidden;\n}\n.vex-close:before {\n  font-family: Arial, sans-serif;\n  content: \"\\00D7\";\n}\n.vex-dialog-form {\n  margin: 0;\n}\n.vex-dialog-button {\n  text-rendering: optimizeLegibility;\n  -moz-appearance: none;\n  -webkit-appearance: none;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n.vex-loading-spinner {\n  animation: vex-rotation 0.7s linear infinite;\n  -webkit-animation: vex-rotation 0.7s linear infinite;\n  -moz-animation: vex-rotation 0.7s linear infinite;\n  -ms-animation: vex-rotation 0.7s linear infinite;\n  -o-animation: vex-rotation 0.7s linear infinite;\n  -webkit-backface-visibility: hidden;\n  -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);\n  -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);\n  box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);\n  position: fixed;\n  z-index: 1112;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  height: 2em;\n  width: 2em;\n  background: #fff;\n}\nbody.vex-open {\n  overflow: hidden;\n}\n"; (require("browserify-css").createStyle(css, { "href": "less/vex.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":5}],3:[function(require,module,exports){
-var css = "/* Generated by less 2.5.1 */\n.JumpStreamer {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  background: #ececec;\n  font-size: 14px;\n  font-weight: 500;\n  font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", \"Helvetica\", sans-serif;\n}\n.JumpStreamer button,\n.JumpStreamer label,\n.JumpStreamer .option,\n.JumpStreamer span {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n.JumpStreamer button {\n  font-size: 14px;\n  font-weight: 500;\n  font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", \"Helvetica\", sans-serif;\n  background: #D9D9D9;\n  border: none;\n  padding: 10px;\n  cursor: pointer;\n  outline: none;\n}\n.JumpStreamer button:hover {\n  background: #aaaaaa;\n}\n.JumpStreamer button:active {\n  transform: scale(0.95);\n}\n.JumpStreamer .view {\n  position: absolute;\n  top: 10px;\n  left: 10px;\n  right: 10px;\n  bottom: 180px;\n  background: #4c4c4c;\n  overflow: hidden;\n  text-align: center;\n}\n.JumpStreamer .view video {\n  height: 100%;\n  display: inline-block;\n  background: black;\n}\n.JumpStreamer .view .mover {\n  height: 100px;\n  width: 100px;\n  position: absolute;\n  border: solid #2651e0 2px;\n}\n.JumpStreamer .view .mover .corner {\n  pointer-events: none;\n  width: 0px;\n  height: 0px;\n  border-radius: 100%;\n  border: solid #2651e0 6px;\n  position: absolute;\n}\n.JumpStreamer .view .mover .corner.top {\n  top: -6px;\n}\n.JumpStreamer .view .mover .corner.left {\n  left: -7px;\n}\n.JumpStreamer .view .mover .corner.bottom {\n  top: calc(98%);\n}\n.JumpStreamer .view .mover .corner.right {\n  left: calc(99%);\n}\n.JumpStreamer .toolbar {\n  height: 170px;\n  display: flex;\n  position: absolute;\n  left: 5px;\n  right: 5px;\n  bottom: 5px;\n}\n.JumpStreamer .toolbar label,\n.JumpStreamer .toolbar br {\n  margin-bottom: 10px;\n}\n.JumpStreamer .toolbar .list {\n  margin-top: 10px;\n}\n.JumpStreamer .toolbar > div {\n  display: inline-block;\n  margin: 5px;\n}\n.JumpStreamer .toolbar .scenes {\n  float: left;\n  width: 150px;\n}\n.JumpStreamer .toolbar .sources {\n  float: left;\n  width: 150px;\n}\n.JumpStreamer .toolbar .mixer {\n  flex-grow: 1;\n  display: none;\n}\n@media only screen and (min-width : 800px) {\n  .JumpStreamer .toolbar .mixer {\n    display: inherit;\n  }\n}\n.JumpStreamer .toolbar .transitions {\n  float: right;\n  width: 150px;\n  display: none;\n}\n@media only screen and (min-width : 620px) {\n  .JumpStreamer .toolbar .transitions {\n    display: inherit;\n  }\n}\n.JumpStreamer .toolbar .controls {\n  float: right;\n  width: 150px;\n}\n.JumpStreamer .toolbar .controls button {\n  display: block;\n  width: 100%;\n  margin-bottom: 5px;\n}\n.JumpStreamer .toolbar .controls button.stopped {\n  background-color: #2ddd5c;\n  color: white;\n}\n.JumpStreamer .toolbar .controls button.started {\n  background-color: #ed2d2d;\n  color: white;\n}\n.JumpStreamer .list .select {\n  background: white;\n  height: 100px;\n  overflow-x: hidden;\n  overflow-y: scroll;\n}\n.JumpStreamer .list .select .option {\n  padding: 3px;\n  cursor: default;\n}\n.JumpStreamer .list .select .option.selected {\n  background: #D4D4D4;\n}\n.JumpStreamer .list .controls {\n  background: #D9D9D9;\n  padding-bottom: 10px;\n}\n.JumpStreamer .list .controls span {\n  margin-left: 5px;\n  font-size: 24px;\n  pointer-events: none;\n  color: #898989;\n}\n.JumpStreamer .list .controls button {\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  text-align: center;\n  background: none;\n  padding: 0;\n  border: none;\n  font-size: 18px;\n  margin-left: 5px;\n  cursor: pointer;\n  outline: none;\n}\n.JumpStreamer .list .controls button.disabled {\n  pointer-events: none;\n  color: #898989;\n}\n.JumpStreamer .list .controls button:hover {\n  color: #454545;\n}\n.JumpStreamer .list .controls button.plus,\n.JumpStreamer .list .controls button.minus {\n  font-size: 26px;\n}\n"; (require("browserify-css").createStyle(css, { "href": "less/wbs.css" }, { "insertAt": "bottom" })); module.exports = css;
+var css = "/* Generated by less 2.5.1 */\n.JumpStreamer {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  background: #ececec;\n  font-size: 14px;\n  font-weight: 500;\n  font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", \"Helvetica\", sans-serif;\n}\n.JumpStreamer button,\n.JumpStreamer label,\n.JumpStreamer .option,\n.JumpStreamer span {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n.JumpStreamer button {\n  font-size: 14px;\n  font-weight: 500;\n  font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", \"Helvetica\", sans-serif;\n  background: #D9D9D9;\n  border: none;\n  padding: 10px;\n  cursor: pointer;\n  outline: none;\n}\n.JumpStreamer button:hover {\n  background: #aaaaaa;\n}\n.JumpStreamer button:active {\n  transform: scale(0.95);\n}\n.JumpStreamer .view {\n  position: absolute;\n  top: 10px;\n  left: 10px;\n  right: 10px;\n  bottom: 180px;\n  background: #4c4c4c;\n  overflow: hidden;\n  text-align: center;\n}\n.JumpStreamer .view video {\n  height: 100%;\n  display: inline-block;\n  background: black;\n}\n.JumpStreamer .view .mover {\n  height: 100px;\n  width: 100px;\n  position: absolute;\n  border: solid #2651e0 2px;\n}\n.JumpStreamer .view .mover .corner {\n  pointer-events: none;\n  width: 0px;\n  height: 0px;\n  border-radius: 100%;\n  border: solid #2651e0 6px;\n  position: absolute;\n}\n.JumpStreamer .view .mover .corner.top {\n  top: -6px;\n}\n.JumpStreamer .view .mover .corner.left {\n  left: -7px;\n}\n.JumpStreamer .view .mover .corner.bottom {\n  top: calc(98%);\n}\n.JumpStreamer .view .mover .corner.right {\n  left: calc(99%);\n}\n.JumpStreamer .toolbar {\n  height: 170px;\n  display: flex;\n  position: absolute;\n  left: 5px;\n  right: 5px;\n  bottom: 5px;\n}\n.JumpStreamer .toolbar label,\n.JumpStreamer .toolbar br {\n  margin-bottom: 10px;\n}\n.JumpStreamer .toolbar .list {\n  margin-top: 10px;\n}\n.JumpStreamer .toolbar > div {\n  display: inline-block;\n  margin: 5px;\n}\n.JumpStreamer .toolbar .scenes {\n  float: left;\n  width: 150px;\n}\n.JumpStreamer .toolbar .sources {\n  float: left;\n  width: 150px;\n}\n.JumpStreamer .toolbar .mixer {\n  flex-grow: 1;\n  display: none;\n}\n@media only screen and (min-width : 800px) {\n  .JumpStreamer .toolbar .mixer {\n    display: inherit;\n  }\n}\n.JumpStreamer .toolbar .mixer > label {\n  position: absolute;\n}\n.JumpStreamer .toolbar .mixer > div {\n  margin-top: 27px;\n  width: 100%;\n  height: 125px;\n  overflow-y: scroll;\n  background: white;\n  padding: 5px;\n}\n.JumpStreamer .toolbar .mixer .meter {\n  height: 5px;\n  background: #00be00;\n}\n.JumpStreamer .toolbar .transitions {\n  float: right;\n  width: 150px;\n  display: none;\n}\n@media only screen and (min-width : 620px) {\n  .JumpStreamer .toolbar .transitions {\n    display: inherit;\n  }\n}\n.JumpStreamer .toolbar .controls {\n  float: right;\n  width: 150px;\n}\n.JumpStreamer .toolbar .controls button {\n  display: block;\n  width: 100%;\n  margin-bottom: 5px;\n}\n.JumpStreamer .toolbar .controls button.stopped {\n  background-color: #2ddd5c;\n  color: white;\n}\n.JumpStreamer .toolbar .controls button.started {\n  background-color: #ed2d2d;\n  color: white;\n}\n.JumpStreamer .list .select {\n  background: white;\n  height: 100px;\n  overflow-x: hidden;\n  overflow-y: scroll;\n}\n.JumpStreamer .list .select .option {\n  padding: 3px;\n  cursor: default;\n}\n.JumpStreamer .list .select .option.selected {\n  background: #D4D4D4;\n}\n.JumpStreamer .list .controls {\n  background: #D9D9D9;\n  padding-bottom: 10px;\n}\n.JumpStreamer .list .controls span {\n  margin-left: 5px;\n  font-size: 24px;\n  pointer-events: none;\n  color: #898989;\n}\n.JumpStreamer .list .controls button {\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  text-align: center;\n  background: none;\n  padding: 0;\n  border: none;\n  font-size: 18px;\n  margin-left: 5px;\n  cursor: pointer;\n  outline: none;\n}\n.JumpStreamer .list .controls button.disabled {\n  pointer-events: none;\n  color: #898989;\n}\n.JumpStreamer .list .controls button:hover {\n  color: #454545;\n}\n.JumpStreamer .list .controls button.plus,\n.JumpStreamer .list .controls button.minus {\n  font-size: 26px;\n}\n"; (require("browserify-css").createStyle(css, { "href": "less/wbs.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":5}],4:[function(require,module,exports){
 /*!
  * Cross-Browser Split 1.1.1
@@ -1034,7 +1034,7 @@ module.exports = function (constraints, cb) {
     });
 };
 
-},{"webrtc-adapter":20}],12:[function(require,module,exports){
+},{"webrtc-adapter":23}],12:[function(require,module,exports){
 var split = require('browser-split')
 var ClassList = require('class-list')
 
@@ -1196,7 +1196,7 @@ function isArray (arr) {
 
 
 
-},{"browser-split":4,"class-list":6,"html-element":43}],13:[function(require,module,exports){
+},{"browser-split":4,"class-list":6,"html-element":47}],13:[function(require,module,exports){
 
 var indexOf = [].indexOf;
 
@@ -7212,6 +7212,122 @@ if (typeof Object.create === 'function') {
 } (typeof window === 'undefined'? undefined : window));
 
 },{}],16:[function(require,module,exports){
+(function (process){
+// Generated by CoffeeScript 1.12.2
+(function() {
+  var getNanoSeconds, hrtime, loadTime, moduleLoadTime, nodeLoadTime, upTime;
+
+  if ((typeof performance !== "undefined" && performance !== null) && performance.now) {
+    module.exports = function() {
+      return performance.now();
+    };
+  } else if ((typeof process !== "undefined" && process !== null) && process.hrtime) {
+    module.exports = function() {
+      return (getNanoSeconds() - nodeLoadTime) / 1e6;
+    };
+    hrtime = process.hrtime;
+    getNanoSeconds = function() {
+      var hr;
+      hr = hrtime();
+      return hr[0] * 1e9 + hr[1];
+    };
+    moduleLoadTime = getNanoSeconds();
+    upTime = process.uptime() * 1e9;
+    nodeLoadTime = moduleLoadTime - upTime;
+  } else if (Date.now) {
+    module.exports = function() {
+      return Date.now() - loadTime;
+    };
+    loadTime = Date.now();
+  } else {
+    module.exports = function() {
+      return new Date().getTime() - loadTime;
+    };
+    loadTime = new Date().getTime();
+  }
+
+}).call(this);
+
+
+
+}).call(this,require('_process'))
+},{"_process":49}],17:[function(require,module,exports){
+(function (global){
+var now = require('performance-now')
+  , root = typeof window === 'undefined' ? global : window
+  , vendors = ['moz', 'webkit']
+  , suffix = 'AnimationFrame'
+  , raf = root['request' + suffix]
+  , caf = root['cancel' + suffix] || root['cancelRequest' + suffix]
+
+for(var i = 0; !raf && i < vendors.length; i++) {
+  raf = root[vendors[i] + 'Request' + suffix]
+  caf = root[vendors[i] + 'Cancel' + suffix]
+      || root[vendors[i] + 'CancelRequest' + suffix]
+}
+
+// Some versions of FF have rAF but not cAF
+if(!raf || !caf) {
+  var last = 0
+    , id = 0
+    , queue = []
+    , frameDuration = 1000 / 60
+
+  raf = function(callback) {
+    if(queue.length === 0) {
+      var _now = now()
+        , next = Math.max(0, frameDuration - (_now - last))
+      last = next + _now
+      setTimeout(function() {
+        var cp = queue.slice(0)
+        // Clear queue here to prevent
+        // callbacks from appending listeners
+        // to the current frame's queue
+        queue.length = 0
+        for(var i = 0; i < cp.length; i++) {
+          if(!cp[i].cancelled) {
+            try{
+              cp[i].callback(last)
+            } catch(e) {
+              setTimeout(function() { throw e }, 0)
+            }
+          }
+        }
+      }, Math.round(next))
+    }
+    queue.push({
+      handle: ++id,
+      callback: callback,
+      cancelled: false
+    })
+    return id
+  }
+
+  caf = function(handle) {
+    for(var i = 0; i < queue.length; i++) {
+      if(queue[i].handle === handle) {
+        queue[i].cancelled = true
+      }
+    }
+  }
+}
+
+module.exports = function(fn) {
+  // Wrap in a new function to prevent
+  // `cancel` potentially being assigned
+  // to the native rAF function
+  return raf.call(root, fn)
+}
+module.exports.cancel = function() {
+  caf.apply(root, arguments)
+}
+module.exports.polyfill = function() {
+  root.requestAnimationFrame = raf
+  root.cancelAnimationFrame = caf
+}
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"performance-now":16}],18:[function(require,module,exports){
  /* eslint-env node */
 'use strict';
 
@@ -7796,7 +7912,7 @@ SDPUtils.isRejected = function(mediaSection) {
 // Expose public methods.
 module.exports = SDPUtils;
 
-},{}],17:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 (function (global){
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.vexDialog = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
@@ -8404,7 +8520,7 @@ module.exports = plugin
 },{"domify":1,"form-serialize":2}]},{},[3])(3)
 });
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"domify":8,"form-serialize":10}],18:[function(require,module,exports){
+},{"domify":8,"form-serialize":10}],20:[function(require,module,exports){
 (function (global){
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.vex = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -9153,18 +9269,25 @@ module.exports = vex
 },{"classlist-polyfill":1,"domify":2,"es6-object-assign":3}]},{},[4])(4)
 });
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"classlist-polyfill":7,"domify":8,"es6-object-assign":9}],19:[function(require,module,exports){
-/* globals window, AudioContext */
+},{"classlist-polyfill":7,"domify":8,"es6-object-assign":9}],21:[function(require,module,exports){
+/* globals window */
 
 module.exports = VideoStreamMerger
-
-window.AudioContext = window.AudioContext || window.webkitAudioContext
 
 function VideoStreamMerger (opts) {
   var self = this
   if (!(self instanceof VideoStreamMerger)) return new VideoStreamMerger(opts)
 
   opts = opts || {}
+
+  var AudioContext = window.AudioContext || window.webkitAudioContext
+  var audioSupport = !!(AudioContext && (self._audioCtx = (opts.audioContext || new AudioContext())).createMediaStreamDestination)
+  var canvasSupport = !!document.createElement('canvas').captureStream
+  var supported = audioSupport && canvasSupport
+  if (!supported) {
+    throw new Error('Unsupported browser')
+  }
+
   self.width = opts.width || 400
   self.height = opts.height || 300
   self.fps = opts.fps || 25
@@ -9174,17 +9297,10 @@ function VideoStreamMerger (opts) {
   self._canvas.setAttribute('width', self.width)
   self._canvas.setAttribute('height', self.height)
   self._canvas.setAttribute('style', 'position:fixed; left: 110%; pointer-events: none') // Push off screen
-  document.body.appendChild(self._canvas)
   self._ctx = self._canvas.getContext('2d')
-
-  // Hidden div to contain video elements
-  self._container = document.createElement('div')
-  self._container.setAttribute('style', 'display:none')
-  document.body.appendChild(self._container)
 
   self._videos = []
 
-  self._audioCtx = new AudioContext()
   self._audioDestination = self._audioCtx.createMediaStreamDestination()
 
   self.started = false
@@ -9215,12 +9331,15 @@ VideoStreamMerger.prototype.addStream = function (mediaStream, opts) {
     video = document.createElement('video')
     video.autoplay = true
     video.muted = true
-    self._container.appendChild(video)
-    video.src = window.URL.createObjectURL(mediaStream)
+    video.srcObject = mediaStream
 
     if (!opts.mute) {
       opts.audioSource = self._audioCtx.createMediaStreamSource(mediaStream)
-      opts.audioSource.connect(self._audioDestination)
+      if (opts.audioEffect) {
+        opts.audioEffect(opts.audioSource, self._audioDestination)
+      } else {
+        opts.audioSource.connect(self._audioDestination)
+      }
     }
   }
 
@@ -9232,14 +9351,8 @@ VideoStreamMerger.prototype.addStream = function (mediaStream, opts) {
 VideoStreamMerger.prototype.removeStream = function (mediaStream) {
   var self = this
 
-  var found = false
-
   for (var i = 0; i < self._videos.length; i++) {
     if (mediaStream.id === self._videos[i].id) {
-      if (!found) {
-        self._container.removeChild(self._videos[i].element)
-      }
-
       if (self._videos[i].audioSource) {
         self._videos[i].audioSource.disconnect(self._audioDestination)
         self._videos[i].audioSource = null
@@ -9248,11 +9361,8 @@ VideoStreamMerger.prototype.removeStream = function (mediaStream) {
       self._videos[i] = null
       self._videos.splice(i, 1)
       i--
-      found = true // keep going, duplicates
     }
   }
-
-  if (!found) throw new Error('Provided stream was never added')
 }
 
 VideoStreamMerger.prototype.start = function () {
@@ -9301,12 +9411,8 @@ VideoStreamMerger.prototype.destroy = function () {
 
   self.started = false
 
-  document.body.removeChild(self._canvas)
-  document.body.removeChild(self._container)
-
   self._canvas = null
   self._ctx = null
-  self._container = null
   self._videos = []
   self._audioCtx = null
   self._audioDestination = null
@@ -9319,7 +9425,68 @@ VideoStreamMerger.prototype.destroy = function () {
 
 module.exports = VideoStreamMerger
 
-},{}],20:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
+var raf = require('raf');
+
+module.exports = VolumeMeter
+
+function VolumeMeter (context, opts, onenterframe) {
+  if (typeof opts === 'function') {
+    onenterframe = opts
+    opts = null
+  }
+  opts = opts || {}
+  opts.fftSize = opts.fftSize || 32
+  opts.tweenIn = opts.tweenIn || 1.618
+  opts.tweenOut = opts.tweenOut || opts.tweenIn * 3
+
+  var buffer, self = this
+  var range, next, tween, handle, last = 0
+  var analyser = context.createAnalyser()
+
+  analyser.stop = function () {
+    this.ended = true
+    raf.cancel(handle)
+  }
+
+  // the fftSize property governs the sample size even
+  // when we are not requesting frequency domain data
+  analyser.fftSize = opts.fftSize
+  buffer = new Uint8Array(opts.fftSize)
+
+  function render () {
+    if (analyser.ended) return
+
+    analyser.getByteTimeDomainData(buffer)
+    range = getDynamicRange(buffer) * (Math.E - 1)
+    next = Math.floor(Math.log1p(range) * 100)
+    tween = next > last ? opts.tweenIn : opts.tweenOut
+    next = last = last + (next - last) / tween
+
+    onenterframe(next)
+    handle = raf(render)
+  }
+
+  render()
+
+  return analyser
+}
+
+function getDynamicRange(buffer) {
+  var len = buffer.length
+  var min = 128
+  var max = 128
+
+  for (var i = 0; i < len; i++) {
+    var sample = buffer[i]
+    if (sample < min) min = sample
+    else if (sample > max) max = sample
+  }
+
+  return (max - min) / 255
+}
+
+},{"raf":17}],23:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -9413,7 +9580,7 @@ module.exports = VideoStreamMerger
   }
 })();
 
-},{"./chrome/chrome_shim":21,"./edge/edge_shim":23,"./firefox/firefox_shim":25,"./safari/safari_shim":27,"./utils":28}],21:[function(require,module,exports){
+},{"./chrome/chrome_shim":24,"./edge/edge_shim":26,"./firefox/firefox_shim":28,"./safari/safari_shim":30,"./utils":31}],24:[function(require,module,exports){
 
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
@@ -9680,7 +9847,7 @@ module.exports = {
   shimGetUserMedia: require('./getusermedia')
 };
 
-},{"../utils.js":28,"./getusermedia":22}],22:[function(require,module,exports){
+},{"../utils.js":31,"./getusermedia":25}],25:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -9880,7 +10047,7 @@ module.exports = function() {
   }
 };
 
-},{"../utils.js":28}],23:[function(require,module,exports){
+},{"../utils.js":31}],26:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11009,7 +11176,7 @@ module.exports = {
   shimGetUserMedia: require('./getusermedia')
 };
 
-},{"../utils":28,"./getusermedia":24,"sdp":16}],24:[function(require,module,exports){
+},{"../utils":31,"./getusermedia":27,"sdp":18}],27:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11043,7 +11210,7 @@ module.exports = function() {
   };
 };
 
-},{}],25:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11207,7 +11374,7 @@ module.exports = {
   shimGetUserMedia: require('./getusermedia')
 };
 
-},{"../utils":28,"./getusermedia":26}],26:[function(require,module,exports){
+},{"../utils":31,"./getusermedia":29}],29:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11370,7 +11537,7 @@ module.exports = function() {
   };
 };
 
-},{"../utils":28}],27:[function(require,module,exports){
+},{"../utils":31}],30:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11400,7 +11567,7 @@ module.exports = {
   // shimPeerConnection: safariShim.shimPeerConnection
 };
 
-},{}],28:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11533,7 +11700,7 @@ module.exports = {
   extractVersion: utils.extractVersion
 };
 
-},{}],29:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 var h = require('hyperscript')
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
@@ -11742,7 +11909,7 @@ List.prototype._checkButtons = function () {
 }
 
 module.exports = List
-},{"./listoption":30,"events":44,"hyperscript":12,"inherits":14}],30:[function(require,module,exports){
+},{"./listoption":33,"events":48,"hyperscript":12,"inherits":14}],33:[function(require,module,exports){
 var h = require('hyperscript')
 
 function ListOption (index, text, value) {
@@ -11766,7 +11933,7 @@ ListOption.prototype.destroy = function () {
 }
   
 module.exports = ListOption
-},{"hyperscript":12}],31:[function(require,module,exports){
+},{"hyperscript":12}],34:[function(require,module,exports){
 // moves/resizes a source on a scene
 
 var EventEmitter = require('events').EventEmitter
@@ -11930,7 +12097,7 @@ SourceMover.prototype.destroy = function () {
 }
   
 module.exports = SourceMover
-},{"events":44,"hyperscript":12,"inherits":14,"interactjs":15}],32:[function(require,module,exports){
+},{"events":48,"hyperscript":12,"inherits":14,"interactjs":15}],35:[function(require,module,exports){
 var h = require('hyperscript')
 var VideoStreamMerger = require('video-stream-merger')
 var EventEmitter = require('events').EventEmitter
@@ -11940,7 +12107,7 @@ var View = require('./widgets/view')
 var Scenes = require('./widgets/scenes')
 var Sources = require('./widgets/sources')
 var Transitions = require('./widgets/transitions')
-var Mixer = require('./widgets/mixer')
+var MixerPanel = require('./widgets/mixerPanel')
 var Controls = require('./widgets/controls')
 
 inherits(Display, EventEmitter)
@@ -11954,7 +12121,7 @@ function Display (element, opts) {
   self.view = new View(opts) 
   self.scenes = new Scenes(self._merger, opts)
   self.sources = new Sources(opts)
-  self.mixer = new Mixer(opts)
+  self.mixerPanel = new MixerPanel(opts)
   self.transitions = new Transitions(opts)
   self.controls = new Controls(opts)
   
@@ -11970,7 +12137,7 @@ function Display (element, opts) {
                    h('div.toolbar',
                     self.scenes.element,
                     self.sources.element,
-                    self.mixer.element,
+                    self.mixerPanel.element,
                     self.transitions.element,
                     self.controls.element))
 
@@ -12004,7 +12171,7 @@ Display.prototype._changeScene = function (scene) {
 }
   
 module.exports = Display
-},{"./widgets/controls":33,"./widgets/mixer":34,"./widgets/scenes":35,"./widgets/sources":36,"./widgets/transitions":37,"./widgets/view":38,"events":44,"hyperscript":12,"inherits":14,"video-stream-merger":19}],33:[function(require,module,exports){
+},{"./widgets/controls":36,"./widgets/mixerPanel":37,"./widgets/scenes":38,"./widgets/sources":39,"./widgets/transitions":40,"./widgets/view":41,"events":48,"hyperscript":12,"inherits":14,"video-stream-merger":21}],36:[function(require,module,exports){
 var h = require('hyperscript')
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
@@ -12056,23 +12223,45 @@ Controls.prototype.clickSettings = function () {
 }
   
 module.exports = Controls
-},{"events":44,"hyperscript":12,"inherits":14}],34:[function(require,module,exports){
+},{"events":48,"hyperscript":12,"inherits":14}],37:[function(require,module,exports){
 var h = require('hyperscript')
 
-function Mixer () {
+var mixer = require('./../../lib/mixer')
+
+function MixerPanel () {
   var self = this
+  
+  var listEl = h('div')
   
   self.element = h('div.mixer',
-                  h('label', 'Mixer'))
-}
-
-Mixer.prototype.method = function () {
-  var self = this
+                  h('label', 'Mixer'),
+                  listEl)
   
+  mixer.on('sourceAdd', function (source) {
+    console.log('source added', source)
+    var sourceElement = h('div#a'+source.id, 
+                         h('label', source.name),
+                         h('div.meter'))
+    listEl.appendChild(sourceElement)
+  })
+  
+  mixer.on('sourceRemove', function (source) {
+    console.log('source removed', source)
+    var el = listEl.querySelector('#a'+source.id)
+    if (!el) return
+    listEl.removeChild(el)
+  })
+  
+  mixer.on('sourceVolume', function (source, volume) {
+    console.log(volume)
+    var el = listEl.querySelector('#a'+source.id + ' .meter')
+    if (!el) return
+    el.style.width = volume+'%'
+  })
 }
   
-module.exports = Mixer
-},{"hyperscript":12}],35:[function(require,module,exports){
+module.exports = MixerPanel
+},{"./../../lib/mixer":44,"hyperscript":12}],38:[function(require,module,exports){
 // Controls adding/removing/changing of scenes
 
 var h = require('hyperscript')
@@ -12147,7 +12336,7 @@ Scenes.prototype._changeScene = function (scene) {
 }
   
 module.exports = Scenes
-},{"./../../lib/scene":41,"./../common/list":29,"events":44,"hyperscript":12,"inherits":14,"video-stream-merger":19}],36:[function(require,module,exports){
+},{"./../../lib/scene":45,"./../common/list":32,"events":48,"hyperscript":12,"inherits":14,"video-stream-merger":21}],39:[function(require,module,exports){
 var h = require('hyperscript')
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
@@ -12238,7 +12427,7 @@ Sources.prototype.setScene = function (scene) {
 }
   
 module.exports = Sources
-},{"./../../lib/inputmanager":40,"./../../lib/source":42,"./../common/list":29,"events":44,"hyperscript":12,"inherits":14}],37:[function(require,module,exports){
+},{"./../../lib/inputmanager":43,"./../../lib/source":46,"./../common/list":32,"events":48,"hyperscript":12,"inherits":14}],40:[function(require,module,exports){
 var h = require('hyperscript')
 
 function Transitions () {
@@ -12254,7 +12443,7 @@ Transitions.prototype.method = function () {
 }
   
 module.exports = Transitions
-},{"hyperscript":12}],38:[function(require,module,exports){
+},{"hyperscript":12}],41:[function(require,module,exports){
 var h = require('hyperscript')
 
 function View () {
@@ -12283,11 +12472,12 @@ View.prototype.setStream = function (stream) {
 }
 
 module.exports = View
-},{"hyperscript":12}],39:[function(require,module,exports){
+},{"hyperscript":12}],42:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
 
 var Display = require('./display/display')
+var mixer = require('./lib/mixer')
 
 inherits(WBS, EventEmitter)
 
@@ -12300,11 +12490,15 @@ function WBS (element, opts) {
   }
 
   opts = opts || {}
+  
+  var audioContext = new AudioContext()
 
+  mixer.setAudioContext(audioContext)
   opts.output = opts.output || {
     width: 400 * 3,
     height: 300 * 3,
-    fps: 40
+    fps: 40,
+    audioContext: audioContext
   }
   opts.inputs = opts.inputs || []
   opts.injectStyles = opts.injectStyles || true
@@ -12323,7 +12517,7 @@ function WBS (element, opts) {
 
 module.exports = WBS
 
-},{"./../less/wbs.css":3,"./display/display":32,"events":44,"inherits":14}],40:[function(require,module,exports){
+},{"./../less/wbs.css":3,"./display/display":35,"./lib/mixer":44,"events":48,"inherits":14}],43:[function(require,module,exports){
 var vex = require('vex-js')
 vex.registerPlugin(require('vex-dialog'))
 
@@ -12342,10 +12536,19 @@ function InputManager (opts) {
   
   // Add default inputs
   self.inputs.push({
-    name: 'Video Camera',
+    name: 'Default Video Camera',
     getStream: function (cb) {
       getusermedia({audio:true, video:true}, function (err, stream) {
-        cb(err, 'Video Camera', stream)
+        cb(err, 'Default Video Camera', stream)
+      })
+    }
+  })
+  
+  self.inputs.push({
+    name: 'Default Microphone',
+    getStream: function (cb) {
+      getusermedia({audio:true, video:false}, function (err, stream) {
+        cb(err, 'Default Microphone', stream)
       })
     }
   })
@@ -12390,17 +12593,59 @@ InputManager.prototype.chooseDevice = function (cb) {
 }
   
 module.exports = InputManager
-},{"./../../less/vex-theme-plain.css":1,"./../../less/vex.css":2,"getusermedia":11,"hyperscript":12,"vex-dialog":17,"vex-js":18}],41:[function(require,module,exports){
+},{"./../../less/vex-theme-plain.css":1,"./../../less/vex.css":2,"getusermedia":11,"hyperscript":12,"vex-dialog":19,"vex-js":20}],44:[function(require,module,exports){
+var VolumeMeter = require('volume-meter')
+
+var EventEmitter = require('events').EventEmitter
+var inherits = require('inherits')
+
+inherits(Mixer, EventEmitter)
+
+function Mixer () {
+  var self = this
+
+  self.audioContext = null
+  self.analyzer = null
+}
+
+Mixer.prototype.setAudioContext = function (audioContext) {
+  var self = this
+  
+  self.audioContext = audioContext
+}
+
+Mixer.prototype.addStream = function (sourceObj, sourceNode, destNode) {
+  var self = this
+  
+  self.emit('sourceAdd', sourceObj)
+  
+  var meter = VolumeMeter(self.audioContext, { tweenIn: 2, tweenOut: 6 }, function (volume) {
+    self.emit('sourceVolume', sourceObj, volume)
+  })
+  
+  sourceNode.connect(meter)
+  sourceNode.connect(destNode)
+}
+
+Mixer.prototype.removeStream = function (id) {
+  var self = this
+  
+  self.emit('sourceRemove', id)
+}
+  
+module.exports = new Mixer()
+},{"events":48,"inherits":14,"volume-meter":22}],45:[function(require,module,exports){
 // merges multiple Sources
 
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
 
 var SourceMover = require('./../display/common/sourcemover')
+var mixer = require('./mixer')
 
 inherits(Scene, EventEmitter)
 
-function Scene (output, opts) {
+function Scene (output, mixerEffect, opts) {
   var self = this
   
   opts = opts || {}
@@ -12410,6 +12655,7 @@ function Scene (output, opts) {
   self.sources = []
   
   self._output = output
+  self._mixerEffect = mixerEffect
 }
 
 Scene.prototype.addSource = function (source) {
@@ -12419,7 +12665,8 @@ Scene.prototype.addSource = function (source) {
   source.mover = mover
   
   self._output.addStream(source.stream, {
-    draw: mover.draw.bind(mover)
+    draw: mover.draw.bind(mover),
+    audioEffect: mixer.addStream.bind(mixer, source)
   })
   
   self.sources.push(source)
@@ -12431,6 +12678,7 @@ Scene.prototype.removeSource = function (source) {
   var self = this
   
   self._output.removeStream(source.stream)
+  mixer.removeStream(source)
   
   for (var i=0; i<self.sources.length; i++) {
     if (self.sources[i].id === source.id) {
@@ -12458,7 +12706,8 @@ Scene.prototype.show = function () {
   
   for (var i=0; i<self.sources.length; i++) {
     self._output.addStream(self.sources[i].stream, {
-      draw: self.sources[i].mover.draw.bind(self.sources[i].mover)
+      draw: self.sources[i].mover.draw.bind(self.sources[i].mover),
+      audioEffect: mixer.addStream.bind(mixer, self.sources[i])
     })
     self.sources[i].mover.show()
   }
@@ -12469,6 +12718,7 @@ Scene.prototype.hide = function () {
   
   for (var i=0; i<self.sources.length; i++) {
     self._output.removeStream(self.sources[i].stream)
+    mixer.removeStream(self.sources[i])
     self.sources[i].mover.hide()
   }
 }
@@ -12484,7 +12734,7 @@ Scene.prototype.destroy = function () {
 }
   
 module.exports = Scene
-},{"./../display/common/sourcemover":31,"events":44,"inherits":14}],42:[function(require,module,exports){
+},{"./../display/common/sourcemover":34,"./mixer":44,"events":48,"inherits":14}],46:[function(require,module,exports){
 // wraps an input MediaStream
 
 var EventEmitter = require('events').EventEmitter
@@ -12512,9 +12762,9 @@ Source.prototype.destroy = function () {
 }
   
 module.exports = Source
-},{"events":44,"inherits":14}],43:[function(require,module,exports){
+},{"events":48,"inherits":14}],47:[function(require,module,exports){
 
-},{}],44:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -12818,5 +13068,187 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}]},{},[39])(39)
+},{}],49:[function(require,module,exports){
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+},{}]},{},[42])(42)
 });

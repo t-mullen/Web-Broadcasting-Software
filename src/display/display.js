@@ -7,7 +7,7 @@ var View = require('./widgets/view')
 var Scenes = require('./widgets/scenes')
 var Sources = require('./widgets/sources')
 var Transitions = require('./widgets/transitions')
-var Mixer = require('./widgets/mixer')
+var MixerPanel = require('./widgets/mixerPanel')
 var Controls = require('./widgets/controls')
 
 inherits(Display, EventEmitter)
@@ -21,7 +21,7 @@ function Display (element, opts) {
   self.view = new View(opts) 
   self.scenes = new Scenes(self._merger, opts)
   self.sources = new Sources(opts)
-  self.mixer = new Mixer(opts)
+  self.mixerPanel = new MixerPanel(opts)
   self.transitions = new Transitions(opts)
   self.controls = new Controls(opts)
   
@@ -37,7 +37,7 @@ function Display (element, opts) {
                    h('div.toolbar',
                     self.scenes.element,
                     self.sources.element,
-                    self.mixer.element,
+                    self.mixerPanel.element,
                     self.transitions.element,
                     self.controls.element))
 
