@@ -10,7 +10,7 @@ The UI and functionality of WBS is modeled around Open Broadcasting Software (OB
 
 If you've never used similar software:
   1. Click "+" on scenes.
-  2. Click "+" on sources (you may need to wait 2-3 seconds the first time). 
+  2. Click "+" on sources. 
   3. Select a media device. 
   4. You can then drag and resize that video, or add more videos to make a composite.
   5. Switch between scenes and active videos by click on them.

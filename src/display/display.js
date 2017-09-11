@@ -25,10 +25,7 @@ function Display (element, opts) {
   self.transitions = new Transitions(opts)
   self.controls = new Controls(opts)
   
-  // HACK: WebAudio will have huge delay if we add sources too soon
-  window.setTimeout(function () {
-    self.sources.ready()
-  }, 6000)
+  self.sources.ready()
   
   self.view.setStream(self._merger.result)
 

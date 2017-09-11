@@ -9302,6 +9302,11 @@ function VideoStreamMerger (opts) {
   self._videos = []
 
   self._audioDestination = self._audioCtx.createMediaStreamDestination()
+  
+  // Start WebAudio immediately
+  var constantAudioNode = self._audioCtx.createConstantSource()
+  constantAudioNode.start()
+  constantAudioNode.connect(self._audioDestination)
 
   self.started = false
   self.result = null
@@ -9310,14 +9315,21 @@ function VideoStreamMerger (opts) {
 VideoStreamMerger.prototype.addStream = function (mediaStream, opts) {
   var self = this
 
+  if (typeof mediaStream === 'string') {
+    return self._addData(mediaStream, opts)
+  }
+
   opts = opts || {}
 
+  opts.isData = false
   opts.x = opts.x || 0
   opts.y = opts.y || 0
   opts.width = opts.width || self.width
   opts.height = opts.height || self.height
   opts.draw = opts.draw || null
   opts.mute = opts.mute || false
+  opts.audioEffect = opts.audioEffect || null
+  opts.index = opts.index === null ? self._videos.length : opts.index
 
   // If it is the same MediaStream, we can reuse our video element (and ignore sound)
   var video = null
@@ -9335,27 +9347,39 @@ VideoStreamMerger.prototype.addStream = function (mediaStream, opts) {
 
     if (!opts.mute) {
       opts.audioSource = self._audioCtx.createMediaStreamSource(mediaStream)
+      opts.audioOutput = self._audioCtx.createGain() // Intermediate gain node
+      opts.audioOutput.gain.value = 1
       if (opts.audioEffect) {
-        opts.audioEffect(opts.audioSource, self._audioDestination)
+        opts.audioEffect(opts.audioSource, opts.audioOutput)
       } else {
-        opts.audioSource.connect(self._audioDestination)
+        opts.audioSource.connect(opts.audioOutput) // Default is direct connect
       }
+      opts.audioOutput.connect(self._audioDestination)
     }
   }
 
   opts.element = video
   opts.id = mediaStream.id || null
-  self._videos.push(opts)
+  self._videos.splice(opts.index, 0, opts)
 }
 
 VideoStreamMerger.prototype.removeStream = function (mediaStream) {
   var self = this
 
+  if (typeof mediaStream === 'string') {
+    mediaStream = {
+      id: mediaStream
+    }
+  }
+
   for (var i = 0; i < self._videos.length; i++) {
     if (mediaStream.id === self._videos[i].id) {
       if (self._videos[i].audioSource) {
-        self._videos[i].audioSource.disconnect(self._audioDestination)
         self._videos[i].audioSource = null
+      }
+      if (self._videos[i].audioOutput) {
+        self._videos[i].audioOutput.disconnect(self._audioDestination)
+        self._videos[i].audioOutput = null
       }
 
       self._videos[i] = null
@@ -9363,6 +9387,27 @@ VideoStreamMerger.prototype.removeStream = function (mediaStream) {
       i--
     }
   }
+}
+
+VideoStreamMerger.prototype._addData = function (key, opts) {
+  var self = this
+
+  opts = opts || {}
+  opts.isData = true
+  opts.draw = opts.draw || null
+  opts.audioEffect = opts.audioEffect || null
+  opts.id = key
+  opts.element = null
+  opts.index = opts.index === null ? self._videos.length : opts.index
+
+  if (opts.audioEffect) {
+    opts.audioOutput = self._audioCtx.createGain() // Intermediate gain node
+    opts.audioOutput.gain.value = 1
+    opts.audioEffect(null, opts.audioOutput)
+    opts.audioOutput.connect(self._audioDestination)
+  }
+
+  self._videos.splice(opts.index, 0, opts)
 }
 
 VideoStreamMerger.prototype.start = function () {
@@ -9397,8 +9442,10 @@ VideoStreamMerger.prototype._draw = function () {
   self._videos.forEach(function (video) {
     if (video.draw) { // custom frame transform
       video.draw(self._ctx, video.element, done)
-    } else {
+    } else if (!video.isData) {
       self._ctx.drawImage(video.element, video.x, video.y, video.width, video.height)
+      done()
+    } else {
       done()
     }
   })
@@ -12125,10 +12172,9 @@ function Display (element, opts) {
   self.transitions = new Transitions(opts)
   self.controls = new Controls(opts)
   
-  // HACK: WebAudio will have huge delay if we add sources too soon
-  window.setTimeout(function () {
-    self.sources.ready()
-  }, 6000)
+
+  self.sources.ready()
+
   
   self.view.setStream(self._merger.result)
 
@@ -13239,6 +13285,10 @@ process.off = noop;
 process.removeListener = noop;
 process.removeAllListeners = noop;
 process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
