@@ -32,6 +32,9 @@ function Sources (opts) {
   self.list.on('change', function (source) {
     self.emit('change', source)
   })
+  self.list.on('reorder', function (index, source) {
+    self.emit('reorder', index, source)
+  })
   
   self.list.disableButton('plus')
   self.list.setButtonContent('plus', '&#9716;')
@@ -78,7 +81,7 @@ Sources.prototype.setScene = function (scene) {
     return
   }
   
-  for (var i=0; i<scene.sources.length; i++) {
+  for (var i=scene.sources.length-1; i>=0; i--) {
     self.list.addOption(scene.sources[i].name, scene.sources[i])
   }
   

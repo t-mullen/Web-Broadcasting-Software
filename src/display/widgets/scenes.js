@@ -39,6 +39,12 @@ Scenes.prototype.removeSource = function (source) {
   self._currentScene.removeSource(source)
 }
 
+Scenes.prototype.reorderSource = function (index, source) {
+  var self = this
+  
+  self._currentScene.reorderSource(index, source)
+}
+
 Scenes.prototype._createScene = function () {
   var self = this
   

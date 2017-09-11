@@ -20,12 +20,11 @@ function List () {
                   self._select,
                   h('div.controls', 
                    self._plus,
-                   self._minus/*, 
-                   h('span', '⦙'),
+                   self._minus, 
+                   h('div', ' '),
                    self._up,
-                   self._down*/))
+                   self._down))
   
-  self._counter = 0
   self._selected = null
   self._options = []
   
@@ -62,10 +61,17 @@ List.prototype.get = function (index) {
 List.prototype.addOption = function (text, value) {
   var self = this
   
-  var opt = new ListOption(self._counter++, text, value)
+  var opt = new ListOption(0, text, value)
+  self._options.forEach(function (opt) {
+    opt.index++
+  })
   
-  self._options.push(opt)
-  self._select.appendChild(opt.element)
+  self._options.splice(0, 0, opt)
+  if (self._select.firstChild) {
+    self._select.insertBefore(opt.element, self._select.firstChild)
+  } else {
+    self._select.appendChild(opt.element)
+  }
   
   self._setSelection(opt)
   
@@ -95,7 +101,6 @@ List.prototype._onRemoveOption = function () {
   ;(function (oldValue) {
     self._options[selectedIndex].destroy()
     self._options.splice(selectedIndex, 1)
-    self._counter--
     self._selected = null
     self._setSelection(self._options[selectedIndex-1] || self._options[selectedIndex+1] || null)
 
@@ -125,6 +130,8 @@ List.prototype._onMoveUp = function () {
     
     self._checkButtons()
     
+    self.emit('reorder', topIndex, self._options[topIndex].value) // emit the lower indexed item
+    
   }(self._options[self._selected.index-1], self._options[self._selected.index]))
 }
 
@@ -135,20 +142,22 @@ List.prototype._onMoveDown = function () {
   if (!self._options[self._selected.index+1]) return
   
   ;(function (top, bottom) {
-    var topIndex = self._selected.index+1
-    var bottomIndex = self._selected.index
+    var topIndex = self._selected.index
+    var bottomIndex = self._selected.index+1
     
-    self._options[topIndex] = bottom
     self._options[bottomIndex] = top
+    self._options[topIndex] = bottom
     
-    self._options[topIndex].index = topIndex
     self._options[bottomIndex].index = bottomIndex
+    self._options[topIndex].index = topIndex
     
-    self._options[bottomIndex].element.parentNode.insertBefore(self._options[bottomIndex].element, self._options[topIndex].element) // swap nodes
+    self._options[topIndex].element.parentNode.insertBefore(self._options[topIndex].element, self._options[bottomIndex].element) // swap nodes
     
     self._checkButtons()
     
-  }(self._options[self._selected.index+1], self._options[self._selected.index]))
+    self.emit('reorder', topIndex, self._options[topIndex].value) // emit the lower indexed item
+    
+  }(self._options[self._selected.index], self._options[self._selected.index+1]))
 }
 
 List.prototype.empty = function () {
@@ -160,7 +169,6 @@ List.prototype.empty = function () {
   }
   
   self._selected = null
-  self._counter = 0
   
   self._checkButtons()
 }

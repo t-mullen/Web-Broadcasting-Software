@@ -21,20 +21,26 @@ function Scene (output, mixerEffect, opts) {
   self._mixerEffect = mixerEffect
 }
 
-Scene.prototype.addSource = function (source) {
+Scene.prototype.addSource = function (source, opts) {
   var self = this
   
   var mover = new SourceMover(source, self._output)
   source.mover = mover
+  source.audioEffect = mixer.addStream.bind(mixer, source)
   
-  self._output.addStream(source.stream, {
-    draw: mover.draw.bind(mover),
-    audioEffect: mixer.addStream.bind(mixer, source)
-  })
+  opts = opts || {}
+  opts.draw = mover.draw.bind(mover)
+  opts.audioEffect = source.audioEffect
+  opts.index = null // place on top
   
+  console.log(opts)
+  
+  self._output.addStream(source.stream, opts)
   self.sources.push(source)
   
   self.emit('mover', mover)
+  
+  console.log(self.sources)
 }
 
 Scene.prototype.removeSource = function (source) {
@@ -50,6 +56,30 @@ Scene.prototype.removeSource = function (source) {
       i--
     }
   }
+}
+
+Scene.prototype.reorderSource = function (index, source) {
+  var self = this
+  
+  var opts = opts || {}
+  opts.draw = source.mover.draw.bind(source.mover)
+  opts.audioEffect = source.audioEffect
+  opts.index = self.sources.length - (index+1)
+  
+  mixer.removeStream(source)
+  
+  self._output.removeStream(source.stream)
+  self._output.addStream(source.stream, opts)
+  
+  for (var i=0; i<self.sources.length; i++) {
+    if (self.sources[i].id === source.id) {
+      self.sources.splice(i, 1)
+      i--
+    }
+  }
+  self.sources.splice(index, 0, source)
+  
+  console.log(self.sources)
 }
 
 Scene.prototype.focusSource = function (source) {

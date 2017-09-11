@@ -27,7 +27,6 @@ function MixerPanel () {
   })
   
   mixer.on('sourceVolume', function (source, volume) {
-    console.log(volume)
     var el = listEl.querySelector('#a'+source.id + ' .meter')
     if (!el) return
     el.style.width = volume+'%'

@@ -46,6 +46,9 @@ function Display (element, opts) {
   self.sources.on('change', function (source) {
     self.scenes.focusSource(source)
   })
+  self.sources.on('reorder', function (index, source) {
+    self.scenes.reorderSource(index, source)
+  })
   
   self.scenes.on('change', self._changeScene.bind(self))
   self.scenes.on('mover', function (mover) {

@@ -3,7 +3,7 @@ var css = "@keyframes vex-pulse {\n  0% {\n    -moz-box-shadow: inset 0 0 0 300p
 },{"browserify-css":5}],2:[function(require,module,exports){
 var css = "@keyframes vex-fadein {\n  0% {\n    opacity: 0;\n  }\n\n  100% {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes vex-fadein {\n  0% {\n    opacity: 0;\n  }\n\n  100% {\n    opacity: 1;\n  }\n}\n@-moz-keyframes vex-fadein {\n  0% {\n    opacity: 0;\n  }\n\n  100% {\n    opacity: 1;\n  }\n}\n@-ms-keyframes vex-fadein {\n  0% {\n    opacity: 0;\n  }\n\n  100% {\n    opacity: 1;\n  }\n}\n@-o-keyframes vex-fadein {\n  0% {\n    opacity: 0;\n  }\n\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes vex-fadeout {\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n}\n@-webkit-keyframes vex-fadeout {\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n}\n@-moz-keyframes vex-fadeout {\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n}\n@-ms-keyframes vex-fadeout {\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n}\n@-o-keyframes vex-fadeout {\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n}\n@keyframes vex-rotation {\n  0% {\n    transform: rotate(0deg);\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n  }\n\n  100% {\n    transform: rotate(359deg);\n    -webkit-transform: rotate(359deg);\n    -moz-transform: rotate(359deg);\n    -ms-transform: rotate(359deg);\n    -o-transform: rotate(359deg);\n  }\n}\n@-webkit-keyframes vex-rotation {\n  0% {\n    transform: rotate(0deg);\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n  }\n\n  100% {\n    transform: rotate(359deg);\n    -webkit-transform: rotate(359deg);\n    -moz-transform: rotate(359deg);\n    -ms-transform: rotate(359deg);\n    -o-transform: rotate(359deg);\n  }\n}\n@-moz-keyframes vex-rotation {\n  0% {\n    transform: rotate(0deg);\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n  }\n\n  100% {\n    transform: rotate(359deg);\n    -webkit-transform: rotate(359deg);\n    -moz-transform: rotate(359deg);\n    -ms-transform: rotate(359deg);\n    -o-transform: rotate(359deg);\n  }\n}\n@-ms-keyframes vex-rotation {\n  0% {\n    transform: rotate(0deg);\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n  }\n\n  100% {\n    transform: rotate(359deg);\n    -webkit-transform: rotate(359deg);\n    -moz-transform: rotate(359deg);\n    -ms-transform: rotate(359deg);\n    -o-transform: rotate(359deg);\n  }\n}\n@-o-keyframes vex-rotation {\n  0% {\n    transform: rotate(0deg);\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n  }\n\n  100% {\n    transform: rotate(359deg);\n    -webkit-transform: rotate(359deg);\n    -moz-transform: rotate(359deg);\n    -ms-transform: rotate(359deg);\n    -o-transform: rotate(359deg);\n  }\n}\n.vex,\n.vex *,\n.vex *:before,\n.vex *:after {\n  -moz-box-sizing: border-box;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.vex {\n  position: fixed;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  z-index: 1111;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n.vex-scrollbar-measure {\n  position: absolute;\n  top: -9999px;\n  width: 50px;\n  height: 50px;\n  overflow: scroll;\n}\n.vex-overlay {\n  background: #000;\n  filter: alpha(opacity=40);\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)\";\n}\n.vex-overlay {\n  animation: vex-fadein 0.5s;\n  -webkit-animation: vex-fadein 0.5s;\n  -moz-animation: vex-fadein 0.5s;\n  -ms-animation: vex-fadein 0.5s;\n  -o-animation: vex-fadein 0.5s;\n  -webkit-backface-visibility: hidden;\n  position: fixed;\n  background: rgba(0, 0, 0, 0.4);\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n.vex.vex-closing .vex-overlay {\n  animation: vex-fadeout 0.5s;\n  -webkit-animation: vex-fadeout 0.5s;\n  -moz-animation: vex-fadeout 0.5s;\n  -ms-animation: vex-fadeout 0.5s;\n  -o-animation: vex-fadeout 0.5s;\n  -webkit-backface-visibility: hidden;\n}\n.vex-content {\n  animation: vex-fadein 0.5s;\n  -webkit-animation: vex-fadein 0.5s;\n  -moz-animation: vex-fadein 0.5s;\n  -ms-animation: vex-fadein 0.5s;\n  -o-animation: vex-fadein 0.5s;\n  -webkit-backface-visibility: hidden;\n  background: #fff;\n}\n.vex.vex-closing .vex-content {\n  animation: vex-fadeout 0.5s;\n  -webkit-animation: vex-fadeout 0.5s;\n  -moz-animation: vex-fadeout 0.5s;\n  -ms-animation: vex-fadeout 0.5s;\n  -o-animation: vex-fadeout 0.5s;\n  -webkit-backface-visibility: hidden;\n}\n.vex-close:before {\n  font-family: Arial, sans-serif;\n  content: \"\\00D7\";\n}\n.vex-dialog-form {\n  margin: 0;\n}\n.vex-dialog-button {\n  text-rendering: optimizeLegibility;\n  -moz-appearance: none;\n  -webkit-appearance: none;\n  cursor: pointer;\n  -webkit-tap-highlight-color: transparent;\n}\n.vex-loading-spinner {\n  animation: vex-rotation 0.7s linear infinite;\n  -webkit-animation: vex-rotation 0.7s linear infinite;\n  -moz-animation: vex-rotation 0.7s linear infinite;\n  -ms-animation: vex-rotation 0.7s linear infinite;\n  -o-animation: vex-rotation 0.7s linear infinite;\n  -webkit-backface-visibility: hidden;\n  -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);\n  -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);\n  box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);\n  position: fixed;\n  z-index: 1112;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  height: 2em;\n  width: 2em;\n  background: #fff;\n}\nbody.vex-open {\n  overflow: hidden;\n}\n"; (require("browserify-css").createStyle(css, { "href": "less/vex.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":5}],3:[function(require,module,exports){
-var css = "/* Generated by less 2.5.1 */\n.JumpStreamer {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  background: #ececec;\n  font-size: 14px;\n  font-weight: 500;\n  font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", \"Helvetica\", sans-serif;\n}\n.JumpStreamer button,\n.JumpStreamer label,\n.JumpStreamer .option,\n.JumpStreamer span {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n.JumpStreamer button {\n  font-size: 14px;\n  font-weight: 500;\n  font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", \"Helvetica\", sans-serif;\n  background: #D9D9D9;\n  border: none;\n  padding: 10px;\n  cursor: pointer;\n  outline: none;\n}\n.JumpStreamer button:hover {\n  background: #aaaaaa;\n}\n.JumpStreamer button:active {\n  transform: scale(0.95);\n}\n.JumpStreamer .view {\n  position: absolute;\n  top: 10px;\n  left: 10px;\n  right: 10px;\n  bottom: 180px;\n  background: #4c4c4c;\n  overflow: hidden;\n  text-align: center;\n}\n.JumpStreamer .view video {\n  height: 100%;\n  display: inline-block;\n  background: black;\n}\n.JumpStreamer .view .mover {\n  height: 100px;\n  width: 100px;\n  position: absolute;\n  border: solid #2651e0 2px;\n}\n.JumpStreamer .view .mover .corner {\n  pointer-events: none;\n  width: 0px;\n  height: 0px;\n  border-radius: 100%;\n  border: solid #2651e0 6px;\n  position: absolute;\n}\n.JumpStreamer .view .mover .corner.top {\n  top: -6px;\n}\n.JumpStreamer .view .mover .corner.left {\n  left: -7px;\n}\n.JumpStreamer .view .mover .corner.bottom {\n  top: calc(98%);\n}\n.JumpStreamer .view .mover .corner.right {\n  left: calc(99%);\n}\n.JumpStreamer .toolbar {\n  height: 170px;\n  display: flex;\n  position: absolute;\n  left: 5px;\n  right: 5px;\n  bottom: 5px;\n}\n.JumpStreamer .toolbar label,\n.JumpStreamer .toolbar br {\n  margin-bottom: 10px;\n}\n.JumpStreamer .toolbar .list {\n  margin-top: 10px;\n}\n.JumpStreamer .toolbar > div {\n  display: inline-block;\n  margin: 5px;\n}\n.JumpStreamer .toolbar .scenes {\n  float: left;\n  width: 150px;\n}\n.JumpStreamer .toolbar .sources {\n  float: left;\n  width: 150px;\n}\n.JumpStreamer .toolbar .mixer {\n  flex-grow: 1;\n  display: none;\n}\n@media only screen and (min-width : 800px) {\n  .JumpStreamer .toolbar .mixer {\n    display: inherit;\n  }\n}\n.JumpStreamer .toolbar .mixer > label {\n  position: absolute;\n}\n.JumpStreamer .toolbar .mixer > div {\n  margin-top: 27px;\n  width: 100%;\n  height: 125px;\n  overflow-y: scroll;\n  background: white;\n  padding: 5px;\n}\n.JumpStreamer .toolbar .mixer .meter {\n  height: 5px;\n  background: #00be00;\n}\n.JumpStreamer .toolbar .transitions {\n  float: right;\n  width: 150px;\n  display: none;\n}\n@media only screen and (min-width : 620px) {\n  .JumpStreamer .toolbar .transitions {\n    display: inherit;\n  }\n}\n.JumpStreamer .toolbar .controls {\n  float: right;\n  width: 150px;\n}\n.JumpStreamer .toolbar .controls button {\n  display: block;\n  width: 100%;\n  margin-bottom: 5px;\n}\n.JumpStreamer .toolbar .controls button.stopped {\n  background-color: #2ddd5c;\n  color: white;\n}\n.JumpStreamer .toolbar .controls button.started {\n  background-color: #ed2d2d;\n  color: white;\n}\n.JumpStreamer .list .select {\n  background: white;\n  height: 100px;\n  overflow-x: hidden;\n  overflow-y: scroll;\n}\n.JumpStreamer .list .select .option {\n  padding: 3px;\n  cursor: default;\n}\n.JumpStreamer .list .select .option.selected {\n  background: #D4D4D4;\n}\n.JumpStreamer .list .controls {\n  background: #D9D9D9;\n  padding-bottom: 10px;\n}\n.JumpStreamer .list .controls span {\n  margin-left: 5px;\n  font-size: 24px;\n  pointer-events: none;\n  color: #898989;\n}\n.JumpStreamer .list .controls button {\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  text-align: center;\n  background: none;\n  padding: 0;\n  border: none;\n  font-size: 18px;\n  margin-left: 5px;\n  cursor: pointer;\n  outline: none;\n}\n.JumpStreamer .list .controls button.disabled {\n  pointer-events: none;\n  color: #898989;\n}\n.JumpStreamer .list .controls button:hover {\n  color: #454545;\n}\n.JumpStreamer .list .controls button.plus,\n.JumpStreamer .list .controls button.minus {\n  font-size: 26px;\n}\n"; (require("browserify-css").createStyle(css, { "href": "less/wbs.css" }, { "insertAt": "bottom" })); module.exports = css;
+var css = "/* Generated by less 2.5.1 */\n.JumpStreamer {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  background: #ececec;\n  font-size: 14px;\n  font-weight: 500;\n  font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", \"Helvetica\", sans-serif;\n}\n.JumpStreamer button,\n.JumpStreamer label,\n.JumpStreamer .option,\n.JumpStreamer span {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n.JumpStreamer button {\n  font-size: 14px;\n  font-weight: 500;\n  font-family: -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", \"Helvetica\", sans-serif;\n  background: #D9D9D9;\n  border: none;\n  padding: 10px;\n  cursor: pointer;\n  outline: none;\n}\n.JumpStreamer button:hover {\n  background: #aaaaaa;\n}\n.JumpStreamer button:active {\n  transform: scale(0.95);\n}\n.JumpStreamer .view {\n  position: absolute;\n  top: 10px;\n  left: 10px;\n  right: 10px;\n  bottom: 180px;\n  background: #4c4c4c;\n  overflow: hidden;\n  text-align: center;\n}\n.JumpStreamer .view video {\n  height: 100%;\n  display: inline-block;\n  background: black;\n}\n.JumpStreamer .view .mover {\n  height: 100px;\n  width: 100px;\n  position: absolute;\n  border: solid #2651e0 2px;\n}\n.JumpStreamer .view .mover .corner {\n  pointer-events: none;\n  width: 0px;\n  height: 0px;\n  border-radius: 100%;\n  border: solid #2651e0 6px;\n  position: absolute;\n}\n.JumpStreamer .view .mover .corner.top {\n  top: -6px;\n}\n.JumpStreamer .view .mover .corner.left {\n  left: -7px;\n}\n.JumpStreamer .view .mover .corner.bottom {\n  top: calc(98%);\n}\n.JumpStreamer .view .mover .corner.right {\n  left: calc(99%);\n}\n.JumpStreamer .toolbar {\n  height: 170px;\n  display: flex;\n  position: absolute;\n  left: 5px;\n  right: 5px;\n  bottom: 5px;\n}\n.JumpStreamer .toolbar label,\n.JumpStreamer .toolbar br {\n  margin-bottom: 10px;\n}\n.JumpStreamer .toolbar .list {\n  margin-top: 10px;\n}\n.JumpStreamer .toolbar > div {\n  display: inline-block;\n  margin: 5px;\n}\n.JumpStreamer .toolbar .scenes {\n  float: left;\n  width: 150px;\n}\n.JumpStreamer .toolbar .sources {\n  float: left;\n  width: 150px;\n}\n.JumpStreamer .toolbar .mixer {\n  flex-grow: 1;\n  display: none;\n}\n@media only screen and (min-width : 800px) {\n  .JumpStreamer .toolbar .mixer {\n    display: inherit;\n  }\n}\n.JumpStreamer .toolbar .mixer > label {\n  position: absolute;\n}\n.JumpStreamer .toolbar .mixer > div {\n  margin-top: 27px;\n  width: 100%;\n  height: 125px;\n  overflow-y: scroll;\n  background: white;\n  padding: 5px;\n}\n.JumpStreamer .toolbar .mixer .meter {\n  height: 5px;\n  background: #00be00;\n}\n.JumpStreamer .toolbar .transitions {\n  float: right;\n  width: 150px;\n  display: none;\n}\n@media only screen and (min-width : 620px) {\n  .JumpStreamer .toolbar .transitions {\n    display: inherit;\n  }\n}\n.JumpStreamer .toolbar .controls {\n  float: right;\n  width: 150px;\n}\n.JumpStreamer .toolbar .controls button {\n  display: block;\n  width: 100%;\n  margin-bottom: 5px;\n}\n.JumpStreamer .toolbar .controls button.stopped {\n  background-color: #2ddd5c;\n  color: white;\n}\n.JumpStreamer .toolbar .controls button.started {\n  background-color: #ed2d2d;\n  color: white;\n}\n.JumpStreamer .list .select {\n  background: white;\n  height: 100px;\n  overflow-x: hidden;\n  overflow-y: scroll;\n}\n.JumpStreamer .list .select .option {\n  padding: 3px;\n  cursor: default;\n}\n.JumpStreamer .list .select .option.selected {\n  background: #D4D4D4;\n}\n.JumpStreamer .list .controls {\n  background: #D9D9D9;\n  padding-bottom: 10px;\n}\n.JumpStreamer .list .controls div {\n  width: 32px;\n  display: inline-block;\n}\n.JumpStreamer .list .controls button {\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  text-align: center;\n  background: none;\n  padding: 0;\n  border: none;\n  font-size: 18px;\n  margin-left: 5px;\n  cursor: pointer;\n  outline: none;\n}\n.JumpStreamer .list .controls button.disabled {\n  pointer-events: none;\n  color: #898989;\n}\n.JumpStreamer .list .controls button:hover {\n  color: #454545;\n}\n.JumpStreamer .list .controls button.plus,\n.JumpStreamer .list .controls button.minus {\n  font-size: 26px;\n}\n"; (require("browserify-css").createStyle(css, { "href": "less/wbs.css" }, { "insertAt": "bottom" })); module.exports = css;
 },{"browserify-css":5}],4:[function(require,module,exports){
 /*!
  * Cross-Browser Split 1.1.1
@@ -11770,12 +11770,11 @@ function List () {
                   self._select,
                   h('div.controls', 
                    self._plus,
-                   self._minus/*, 
-                   h('span', '⦙'),
+                   self._minus, 
+                   h('div', ' '),
                    self._up,
-                   self._down*/))
+                   self._down))
   
-  self._counter = 0
   self._selected = null
   self._options = []
   
@@ -11812,10 +11811,17 @@ List.prototype.get = function (index) {
 List.prototype.addOption = function (text, value) {
   var self = this
   
-  var opt = new ListOption(self._counter++, text, value)
+  var opt = new ListOption(0, text, value)
+  self._options.forEach(function (opt) {
+    opt.index++
+  })
   
-  self._options.push(opt)
-  self._select.appendChild(opt.element)
+  self._options.splice(0, 0, opt)
+  if (self._select.firstChild) {
+    self._select.insertBefore(opt.element, self._select.firstChild)
+  } else {
+    self._select.appendChild(opt.element)
+  }
   
   self._setSelection(opt)
   
@@ -11845,7 +11851,6 @@ List.prototype._onRemoveOption = function () {
   ;(function (oldValue) {
     self._options[selectedIndex].destroy()
     self._options.splice(selectedIndex, 1)
-    self._counter--
     self._selected = null
     self._setSelection(self._options[selectedIndex-1] || self._options[selectedIndex+1] || null)
 
@@ -11875,6 +11880,8 @@ List.prototype._onMoveUp = function () {
     
     self._checkButtons()
     
+    self.emit('reorder', topIndex, self._options[topIndex].value) // emit the lower indexed item
+    
   }(self._options[self._selected.index-1], self._options[self._selected.index]))
 }
 
@@ -11885,20 +11892,22 @@ List.prototype._onMoveDown = function () {
   if (!self._options[self._selected.index+1]) return
   
   ;(function (top, bottom) {
-    var topIndex = self._selected.index+1
-    var bottomIndex = self._selected.index
+    var topIndex = self._selected.index
+    var bottomIndex = self._selected.index+1
     
-    self._options[topIndex] = bottom
     self._options[bottomIndex] = top
+    self._options[topIndex] = bottom
     
-    self._options[topIndex].index = topIndex
     self._options[bottomIndex].index = bottomIndex
+    self._options[topIndex].index = topIndex
     
-    self._options[bottomIndex].element.parentNode.insertBefore(self._options[bottomIndex].element, self._options[topIndex].element) // swap nodes
+    self._options[topIndex].element.parentNode.insertBefore(self._options[topIndex].element, self._options[bottomIndex].element) // swap nodes
     
     self._checkButtons()
     
-  }(self._options[self._selected.index+1], self._options[self._selected.index]))
+    self.emit('reorder', topIndex, self._options[topIndex].value) // emit the lower indexed item
+    
+  }(self._options[self._selected.index], self._options[self._selected.index+1]))
 }
 
 List.prototype.empty = function () {
@@ -11910,7 +11919,6 @@ List.prototype.empty = function () {
   }
   
   self._selected = null
-  self._counter = 0
   
   self._checkButtons()
 }
@@ -12172,9 +12180,7 @@ function Display (element, opts) {
   self.transitions = new Transitions(opts)
   self.controls = new Controls(opts)
   
-
   self.sources.ready()
-
   
   self.view.setStream(self._merger.result)
 
@@ -12194,6 +12200,9 @@ function Display (element, opts) {
   })
   self.sources.on('change', function (source) {
     self.scenes.focusSource(source)
+  })
+  self.sources.on('reorder', function (index, source) {
+    self.scenes.reorderSource(index, source)
   })
   
   self.scenes.on('change', self._changeScene.bind(self))
@@ -12299,7 +12308,6 @@ function MixerPanel () {
   })
   
   mixer.on('sourceVolume', function (source, volume) {
-    console.log(volume)
     var el = listEl.querySelector('#a'+source.id + ' .meter')
     if (!el) return
     el.style.width = volume+'%'
@@ -12347,6 +12355,12 @@ Scenes.prototype.removeSource = function (source) {
   var self = this
   
   self._currentScene.removeSource(source)
+}
+
+Scenes.prototype.reorderSource = function (index, source) {
+  var self = this
+  
+  self._currentScene.reorderSource(index, source)
 }
 
 Scenes.prototype._createScene = function () {
@@ -12417,6 +12431,9 @@ function Sources (opts) {
   self.list.on('change', function (source) {
     self.emit('change', source)
   })
+  self.list.on('reorder', function (index, source) {
+    self.emit('reorder', index, source)
+  })
   
   self.list.disableButton('plus')
   self.list.setButtonContent('plus', '&#9716;')
@@ -12463,7 +12480,7 @@ Sources.prototype.setScene = function (scene) {
     return
   }
   
-  for (var i=0; i<scene.sources.length; i++) {
+  for (var i=scene.sources.length-1; i>=0; i--) {
     self.list.addOption(scene.sources[i].name, scene.sources[i])
   }
   
@@ -12704,20 +12721,26 @@ function Scene (output, mixerEffect, opts) {
   self._mixerEffect = mixerEffect
 }
 
-Scene.prototype.addSource = function (source) {
+Scene.prototype.addSource = function (source, opts) {
   var self = this
   
   var mover = new SourceMover(source, self._output)
   source.mover = mover
+  source.audioEffect = mixer.addStream.bind(mixer, source)
   
-  self._output.addStream(source.stream, {
-    draw: mover.draw.bind(mover),
-    audioEffect: mixer.addStream.bind(mixer, source)
-  })
+  opts = opts || {}
+  opts.draw = mover.draw.bind(mover)
+  opts.audioEffect = source.audioEffect
+  opts.index = null // place on top
   
+  console.log(opts)
+  
+  self._output.addStream(source.stream, opts)
   self.sources.push(source)
   
   self.emit('mover', mover)
+  
+  console.log(self.sources)
 }
 
 Scene.prototype.removeSource = function (source) {
@@ -12733,6 +12756,30 @@ Scene.prototype.removeSource = function (source) {
       i--
     }
   }
+}
+
+Scene.prototype.reorderSource = function (index, source) {
+  var self = this
+  
+  var opts = opts || {}
+  opts.draw = source.mover.draw.bind(source.mover)
+  opts.audioEffect = source.audioEffect
+  opts.index = self.sources.length - (index+1)
+  
+  mixer.removeStream(source)
+  
+  self._output.removeStream(source.stream)
+  self._output.addStream(source.stream, opts)
+  
+  for (var i=0; i<self.sources.length; i++) {
+    if (self.sources[i].id === source.id) {
+      self.sources.splice(i, 1)
+      i--
+    }
+  }
+  self.sources.splice(index, 0, source)
+  
+  console.log(self.sources)
 }
 
 Scene.prototype.focusSource = function (source) {
