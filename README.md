@@ -93,8 +93,3 @@ For example, here is one of the default devices:
 `wbs` does not **broadcast** your video, it simply gives you an output MediaStream to do with as you wish.
 
 You could send it over a WebRTC connection, record it as a file, send to to a proxy RTMP server, pipe it through FFMPEG... anything.
-
-## todo
-- [ ] Audio mixer
-- [ ] Scene transitions
-- [ ] Visual effect API
