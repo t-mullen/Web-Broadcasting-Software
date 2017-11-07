@@ -9302,14 +9302,24 @@ function VideoStreamMerger (opts) {
   self._videos = []
 
   self._audioDestination = self._audioCtx.createMediaStreamDestination()
-  
-  // Start WebAudio immediately
-  var constantAudioNode = self._audioCtx.createConstantSource()
-  constantAudioNode.start()
-  constantAudioNode.connect(self._audioDestination)
+
+  self._setupConstantNode() // HACK for wowza #7, #10
 
   self.started = false
   self.result = null
+}
+
+VideoStreamMerger.prototype._setupConstantNode = function () {
+  var self = this
+
+  var constantAudioNode = self._audioCtx.createConstantSource()
+  constantAudioNode.start()
+
+  var gain = self._audioCtx.createGain() // gain node prevents quality drop
+  gain.gain.value = 0
+
+  constantAudioNode.connect(gain)
+  gain.connect(self._audioDestination)
 }
 
 VideoStreamMerger.prototype.addStream = function (mediaStream, opts) {
@@ -9329,7 +9339,7 @@ VideoStreamMerger.prototype.addStream = function (mediaStream, opts) {
   opts.draw = opts.draw || null
   opts.mute = opts.mute || false
   opts.audioEffect = opts.audioEffect || null
-  opts.index = opts.index === null ? self._videos.length : opts.index
+  opts.index = opts.index === undefined ? self._videos.length : opts.index
 
   // If it is the same MediaStream, we can reuse our video element (and ignore sound)
   var video = null
