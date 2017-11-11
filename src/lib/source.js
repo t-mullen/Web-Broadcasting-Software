@@ -5,12 +5,13 @@ var inherits = require('inherits')
 
 inherits(Source, EventEmitter)
 
-function Source (stream, name) {
+function Source (stream, name, hasVideo) {
   var self = this
 
   self.stream = stream || null
   self.id = stream.id
   self.name = name || 'Source'
+  self.hasVideo = hasVideo
   self.mover = null
 }
 

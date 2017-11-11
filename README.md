@@ -61,29 +61,31 @@ Optional `opts` is a configuration object that will override the following defau
 
 ### adding input devices
 
-There are several ways to get MediaStreams to use as input sources. To add your own, put an object inside the `opts.inputs` array that has the following format:
+WBS automatically detects AV devices on the system. However, any method to get a MediaStream can be used as an input. To add your own, put an object inside the `opts.inputs` array that has the following format:
 
 ```
 {
   name: 'Display Name of Device', // Can be anything, but it should be descriptive
   getStream: function (callback) {
     // This function should call "callback" with the following arguments
-    callback(err, name, stream)  
+    callback(err, name, isVideo, stream)  
       - "err" is any error thrown, null otherwise
-      - "name" is the name of the source (usually the same as the device name)
+      - "name" is the name of the device, with the kind (Video/Audio Input/Ouput) in brackets
+      - "isVideo" is true if the stream will have only video tracks, false if only audio tracks.
       - "stream" is the input MediaStream
   }
 }
 ```
 
-For example, here is one of the default devices:
+Here is an example device:
 
-```
+```javascript
 {
-  name: 'Video Camera',
+  name: 'Video Camera (Video Input)',
+  hasVideo: true, // false for
   getStream: function (callback) {
-    getusermedia({audio:true, video:true}, function (err, stream) {
-      callback(err, 'Video Camera', stream)
+    getusermedia({audio:false, video:true}, function (err, stream) {
+      callback(err, 'Video Camera', true, stream)
     })
   }
 }

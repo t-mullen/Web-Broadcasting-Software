@@ -52,10 +52,10 @@ Sources.prototype.ready = function () {
 Sources.prototype._getSource = function () {
   var self = this
   
-  self.inputManager.chooseDevice(function (err, name, stream) {
+  self.inputManager.chooseDevice(function (err, name, hasVideo, stream) {
     if (err) throw err
     
-    var newSource = new Source(stream, name || 'Source')
+    var newSource = new Source(stream, name || 'Source', hasVideo)
     
     self.scene.addSource(newSource)
     self.list.addOption(newSource.name, newSource)

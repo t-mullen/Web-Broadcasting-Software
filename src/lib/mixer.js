@@ -29,12 +29,15 @@ Mixer.prototype.addStream = function (sourceObj, sourceNode, destNode) {
   
   sourceNode.connect(meter)
   sourceNode.connect(destNode)
+
+  console.log('added')
 }
 
 Mixer.prototype.removeStream = function (id) {
   var self = this
   
   self.emit('sourceRemove', id)
+  console.log('removed')
 }
   
 module.exports = new Mixer()

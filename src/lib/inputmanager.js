@@ -8,34 +8,69 @@ vex.defaultOptions.className = 'vex-theme-plain'
 
 var h = require('hyperscript')
 var getusermedia = require('getusermedia')
+var enumerateDevices = require('enumerate-devices')
+
+function getMediaPermissions (cb) {
+  getusermedia({audio: true, video:true}, cb)
+}
+
+function getReadableName (device, counter) {
+  if (device.label) {
+    return device.label + ' ('+formatKind(device.kind)+')'
+  } else {
+    return formatKind(device.kind)+ ' ' + counter
+  }
+}
+
+function formatKind (kind) {
+  switch (kind) {
+    case 'audioinput':
+      return 'Audio Input'
+      break
+    case 'videoinput':
+      return 'Video Input'
+      break
+    case 'audiooutput':
+      return 'Audio Output'
+      break
+    case 'videooutput':
+      return 'Video Output'
+      break
+  }
+}
+
+function contains (str, substr) {
+  return str.indexOf(substr) !== -1
+}
 
 function InputManager (opts) {
   var self = this
 
   self.inputs = opts.inputs
-  
-  // Add default inputs
-  self.inputs.push({
-    name: 'Default Video Camera',
-    getStream: function (cb) {
-      getusermedia({audio:true, video:true}, function (err, stream) {
-        cb(err, 'Default Video Camera', stream)
+
+  // add default inputs
+  getMediaPermissions(function (err) {
+    if (err) return console.error(err)
+
+    enumerateDevices().then((devices) => {
+      var counter = -1
+      devices.forEach(function (device) {
+        counter++
+        var deviceName = getReadableName(device, counter)
+        var hasVideo = contains(device.kind, 'video')
+        self.inputs.push({
+          name: deviceName,
+          getStream: function (cb) {
+            getusermedia({
+              audio: contains(device.kind, 'audio') ? {exact: device.deviceId}: undefined,
+              video: contains(device.kind, 'video') ? {exact: device.deviceId} : undefined
+            }, function (err, stream) {
+              cb(err, deviceName, hasVideo, stream)
+            })
+          }
+        })
       })
-    }
-  })
-  
-  self.inputs.push({
-    name: 'Default Microphone',
-    getStream: function (cb) {
-      getusermedia({audio:true, video:false}, function (err, stream) {
-        cb(err, 'Default Microphone', stream)
-      })
-    }
-  })
-  
-  var counter = 0;
-  self.inputs.forEach(function (a) {
-    a.id = counter++
+    })
   })
 }
 

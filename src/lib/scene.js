@@ -23,23 +23,27 @@ function Scene (output, mixerEffect, opts) {
 
 Scene.prototype.addSource = function (source, opts) {
   var self = this
-  
-  var mover = new SourceMover(source, self._output)
-  source.mover = mover
-  source.audioEffect = mixer.addStream.bind(mixer, source)
-  
+
   opts = opts || {}
-  opts.draw = mover.draw.bind(mover)
   opts.audioEffect = source.audioEffect
   opts.index = null // place on top
   
-  console.log(opts)
+  if (source.hasVideo) {
+    var mover = new SourceMover(source, self._output)
+    source.mover = mover
+    opts.draw = mover.draw.bind(mover)
+    self.emit('mover', mover)
+    opts.mute = true
+  }
+
+  if (!source.hasVideo) {
+    source.audioEffect = mixer.addStream.bind(mixer, source)
+    opts.audioEffect = source.audioEffect
+  }
   
   self._output.addStream(source.stream, opts)
   self.sources.push(source)
-  
-  self.emit('mover', mover)
-  
+
   console.log(self.sources)
 }
 
@@ -62,7 +66,10 @@ Scene.prototype.reorderSource = function (index, source) {
   var self = this
   
   var opts = opts || {}
-  opts.draw = source.mover.draw.bind(source.mover)
+  if (source.mover) {
+    opts.draw = source.mover.draw.bind(source.mover)
+    opts.mute = true
+  }
   opts.audioEffect = source.audioEffect
   opts.index = self.sources.length - (index+1)
   
@@ -86,6 +93,7 @@ Scene.prototype.focusSource = function (source) {
   var self = this
   
   for (var i=0; i<self.sources.length; i++) {
+    if (!self.sources[i].mover) continue
     if (source && self.sources[i].id === source.id) {
       self.sources[i].mover.focus()
     } else {
@@ -98,11 +106,18 @@ Scene.prototype.show = function () {
   var self = this
   
   for (var i=0; i<self.sources.length; i++) {
-    self._output.addStream(self.sources[i].stream, {
-      draw: self.sources[i].mover.draw.bind(self.sources[i].mover),
-      audioEffect: mixer.addStream.bind(mixer, self.sources[i])
-    })
-    self.sources[i].mover.show()
+    if (self.sources[i].mover) {
+      self._output.addStream(self.sources[i].stream, {
+        draw: self.sources[i].mover.draw.bind(self.sources[i].mover),
+        audioEffect: mixer.addStream.bind(mixer, self.sources[i]),
+        mute: true
+      })
+      self.sources[i].mover.show()
+    } else {
+      self._output.addStream(self.sources[i].stream, {
+        audioEffect: mixer.addStream.bind(mixer, self.sources[i])
+      })
+    }
   }
 }
 
@@ -112,7 +127,10 @@ Scene.prototype.hide = function () {
   for (var i=0; i<self.sources.length; i++) {
     self._output.removeStream(self.sources[i].stream)
     mixer.removeStream(self.sources[i])
-    self.sources[i].mover.hide()
+
+    if (self.sources[i].mover) {
+      self.sources[i].mover.hide()
+    }
   }
 }
 
