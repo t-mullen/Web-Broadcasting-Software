@@ -47,18 +47,24 @@ function InputManager (opts) {
   var self = this
 
   self.inputs = opts.inputs
+  var counter = -1
+
+  self.inputs.forEach(device => {
+    counter++
+    device.id = counter
+  })
 
   // add default inputs
   getMediaPermissions(function (err) {
     if (err) return console.error(err)
 
     enumerateDevices().then((devices) => {
-      var counter = -1
       devices.forEach(function (device) {
         counter++
         var deviceName = getReadableName(device, counter)
         var hasVideo = contains(device.kind, 'video')
         self.inputs.push({
+          id: counter,
           name: deviceName,
           getStream: function (cb) {
             getusermedia({
