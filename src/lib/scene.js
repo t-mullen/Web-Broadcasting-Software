@@ -65,18 +65,9 @@ Scene.prototype.removeSource = function (source) {
 Scene.prototype.reorderSource = function (index, source) {
   var self = this
   
-  var opts = opts || {}
-  if (source.mover) {
-    opts.draw = source.mover.draw.bind(source.mover)
-    opts.mute = true
-  }
-  opts.audioEffect = source.audioEffect
-  opts.index = self.sources.length - (index+1)
+  index = self.sources.length - (index+1)
   
-  mixer.removeStream(source)
-  
-  self._output.removeStream(source.stream)
-  self._output.addStream(source.stream, opts)
+  self._output.updateIndex(source.stream, index)
   
   for (var i=0; i<self.sources.length; i++) {
     if (self.sources[i].id === source.id) {
@@ -104,6 +95,8 @@ Scene.prototype.focusSource = function (source) {
 
 Scene.prototype.show = function () {
   var self = this
+
+  console.log(self._output._streams)
   
   for (var i=0; i<self.sources.length; i++) {
     if (self.sources[i].mover) {

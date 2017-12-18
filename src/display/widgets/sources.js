@@ -81,9 +81,9 @@ Sources.prototype.setScene = function (scene) {
     return
   }
   
-  for (var i=scene.sources.length-1; i>=0; i--) {
-    self.list.addOption(scene.sources[i].name, scene.sources[i])
-  }
+  scene.sources.forEach((source) => {
+    self.list.addOption(source.name, source)
+  })
   
   self.scene = scene
   

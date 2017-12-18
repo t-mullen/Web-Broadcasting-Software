@@ -9342,7 +9342,6 @@ function VideoStreamMerger (opts) {
   if (!supported) {
     throw new Error('Unsupported browser')
   }
-
   self.width = opts.width || 400
   self.height = opts.height || 300
   self.fps = opts.fps || 25
@@ -9354,7 +9353,7 @@ function VideoStreamMerger (opts) {
   self._canvas.setAttribute('style', 'position:fixed; left: 110%; pointer-events: none') // Push off screen
   self._ctx = self._canvas.getContext('2d')
 
-  self._videos = []
+  self._streams = []
 
   self._audioDestination = self._audioCtx.createMediaStreamDestination()
 
@@ -9362,6 +9361,20 @@ function VideoStreamMerger (opts) {
 
   self.started = false
   self.result = null
+
+  self._backgroundAudioHack()
+}
+
+VideoStreamMerger.prototype._backgroundAudioHack = function () {
+  var self = this
+
+  // stop browser from throttling timers by playing almost-silent audio
+  var source = self._audioCtx.createConstantSource()
+  var gainNode = self._audioCtx.createGain()
+  gainNode.gain.value = 0.001 // required to prevent popping on start
+  source.connect(gainNode)
+  gainNode.connect(self._audioCtx.destination)
+  source.start()
 }
 
 VideoStreamMerger.prototype._setupConstantNode = function () {
@@ -9377,6 +9390,26 @@ VideoStreamMerger.prototype._setupConstantNode = function () {
   gain.connect(self._audioDestination)
 }
 
+VideoStreamMerger.prototype.updateIndex = function (mediaStream, index) {
+  var self = this
+
+  if (typeof mediaStream === 'string') {
+    mediaStream = {
+      id: mediaStream
+    }
+  }
+
+  index = index == null ? self._streams.length : index
+
+  for (var i = 0; i < self._streams.length; i++) {
+    if (mediaStream.id === self._streams[i].id) {
+      var stream = self._streams.splice(i, 1)[0]
+      stream.index = index
+      self._streams.splice(stream.index, 0, stream)
+    }
+  }
+}
+
 VideoStreamMerger.prototype.addStream = function (mediaStream, opts) {
   var self = this
 
@@ -9385,47 +9418,48 @@ VideoStreamMerger.prototype.addStream = function (mediaStream, opts) {
   }
 
   opts = opts || {}
+  var stream = {}
 
-  opts.isData = false
-  opts.x = opts.x || 0
-  opts.y = opts.y || 0
-  opts.width = opts.width || self.width
-  opts.height = opts.height || self.height
-  opts.draw = opts.draw || null
-  opts.mute = opts.mute || false
-  opts.audioEffect = opts.audioEffect || null
-  opts.index = opts.index === undefined ? self._videos.length : opts.index
+  stream.isData = false
+  stream.x = opts.x || 0
+  stream.y = opts.y || 0
+  stream.width = opts.width || self.width
+  stream.height = opts.height || self.height
+  stream.draw = opts.draw || null
+  stream.mute = opts.mute || false
+  stream.audioEffect = opts.audioEffect || null
+  stream.index = opts.index == null ? self._streams.length : opts.index
 
   // If it is the same MediaStream, we can reuse our video element (and ignore sound)
-  var video = null
-  for (var i = 0; i < self._videos.length; i++) {
-    if (self._videos[i].id === mediaStream.id) {
-      video = self._videos[i].element
+  var videoElement = null
+  for (var i = 0; i < self._streams.length; i++) {
+    if (self._streams[i].id === mediaStream.id) {
+      videoElement = self._streams[i].element
     }
   }
 
-  if (!video) {
-    video = document.createElement('video')
-    video.autoplay = true
-    video.muted = true
-    video.srcObject = mediaStream
+  if (!videoElement) {
+    videoElement = document.createElement('video')
+    videoElement.autoplay = true
+    videoElement.muted = true
+    videoElement.srcObject = mediaStream
 
-    if (!opts.mute) {
-      opts.audioSource = self._audioCtx.createMediaStreamSource(mediaStream)
-      opts.audioOutput = self._audioCtx.createGain() // Intermediate gain node
-      opts.audioOutput.gain.value = 1
-      if (opts.audioEffect) {
-        opts.audioEffect(opts.audioSource, opts.audioOutput)
+    if (!stream.mute) {
+      stream.audioSource = self._audioCtx.createMediaStreamSource(mediaStream)
+      stream.audioOutput = self._audioCtx.createGain() // Intermediate gain node
+      stream.audioOutput.gain.value = 1
+      if (stream.audioEffect) {
+        stream.audioEffect(stream.audioSource, stream.audioOutput)
       } else {
-        opts.audioSource.connect(opts.audioOutput) // Default is direct connect
+        stream.audioSource.connect(stream.audioOutput) // Default is direct connect
       }
-      opts.audioOutput.connect(self._audioDestination)
+      stream.audioOutput.connect(self._audioDestination)
     }
   }
 
-  opts.element = video
-  opts.id = mediaStream.id || null
-  self._videos.splice(opts.index, 0, opts)
+  stream.element = videoElement
+  stream.id = mediaStream.id || null
+  self._streams.splice(stream.index, 0, stream)
 }
 
 VideoStreamMerger.prototype.removeStream = function (mediaStream) {
@@ -9437,18 +9471,18 @@ VideoStreamMerger.prototype.removeStream = function (mediaStream) {
     }
   }
 
-  for (var i = 0; i < self._videos.length; i++) {
-    if (mediaStream.id === self._videos[i].id) {
-      if (self._videos[i].audioSource) {
-        self._videos[i].audioSource = null
+  for (var i = 0; i < self._streams.length; i++) {
+    if (mediaStream.id === self._streams[i].id) {
+      if (self._streams[i].audioSource) {
+        self._streams[i].audioSource = null
       }
-      if (self._videos[i].audioOutput) {
-        self._videos[i].audioOutput.disconnect(self._audioDestination)
-        self._videos[i].audioOutput = null
+      if (self._streams[i].audioOutput) {
+        self._streams[i].audioOutput.disconnect(self._audioDestination)
+        self._streams[i].audioOutput = null
       }
 
-      self._videos[i] = null
-      self._videos.splice(i, 1)
+      self._streams[i] = null
+      self._streams.splice(i, 1)
       i--
     }
   }
@@ -9458,21 +9492,23 @@ VideoStreamMerger.prototype._addData = function (key, opts) {
   var self = this
 
   opts = opts || {}
-  opts.isData = true
-  opts.draw = opts.draw || null
-  opts.audioEffect = opts.audioEffect || null
-  opts.id = key
-  opts.element = null
-  opts.index = opts.index === null ? self._videos.length : opts.index
+  var stream = {}
 
-  if (opts.audioEffect) {
-    opts.audioOutput = self._audioCtx.createGain() // Intermediate gain node
-    opts.audioOutput.gain.value = 1
-    opts.audioEffect(null, opts.audioOutput)
-    opts.audioOutput.connect(self._audioDestination)
+  stream.isData = true
+  stream.draw = opts.draw || null
+  stream.audioEffect = opts.audioEffect || null
+  stream.id = key
+  stream.element = null
+  stream.index = opts.index == null ? self._streams.length : opts.index
+
+  if (stream.audioEffect) {
+    stream.audioOutput = self._audioCtx.createGain() // Intermediate gain node
+    stream.audioOutput.gain.value = 1
+    stream.audioEffect(null, stream.audioOutput)
+    stream.audioOutput.connect(self._audioDestination)
   }
 
-  self._videos.splice(opts.index, 0, opts)
+  self._streams.splice(stream.index, 0, stream)
 }
 
 VideoStreamMerger.prototype.start = function () {
@@ -9497,14 +9533,14 @@ VideoStreamMerger.prototype._draw = function () {
   var self = this
   if (!self.started) return
 
-  var awaiting = self._videos.length
+  var awaiting = self._streams.length
   function done () {
     awaiting--
     if (awaiting <= 0) window.requestAnimationFrame(self._draw.bind(self))
   }
 
   self._ctx.clearRect(0, 0, self.width, self.height)
-  self._videos.forEach(function (video) {
+  self._streams.forEach(function (video) {
     if (video.draw) { // custom frame transform
       video.draw(self._ctx, video.element, done)
     } else if (!video.isData) {
@@ -9515,7 +9551,7 @@ VideoStreamMerger.prototype._draw = function () {
     }
   })
 
-  if (self._videos.length === 0) done()
+  if (self._streams.length === 0) done()
 }
 
 VideoStreamMerger.prototype.destroy = function () {
@@ -9525,7 +9561,8 @@ VideoStreamMerger.prototype.destroy = function () {
 
   self._canvas = null
   self._ctx = null
-  self._videos = []
+  self._streams = []
+  self._audioCtx.close()
   self._audioCtx = null
   self._audioDestination = null
 
@@ -12545,9 +12582,9 @@ Sources.prototype.setScene = function (scene) {
     return
   }
   
-  for (var i=scene.sources.length-1; i>=0; i--) {
-    self.list.addOption(scene.sources[i].name, scene.sources[i])
-  }
+  scene.sources.forEach((source) => {
+    self.list.addOption(source.name, source)
+  })
   
   self.scene = scene
   
@@ -12874,18 +12911,9 @@ Scene.prototype.removeSource = function (source) {
 Scene.prototype.reorderSource = function (index, source) {
   var self = this
   
-  var opts = opts || {}
-  if (source.mover) {
-    opts.draw = source.mover.draw.bind(source.mover)
-    opts.mute = true
-  }
-  opts.audioEffect = source.audioEffect
-  opts.index = self.sources.length - (index+1)
+  index = self.sources.length - (index+1)
   
-  mixer.removeStream(source)
-  
-  self._output.removeStream(source.stream)
-  self._output.addStream(source.stream, opts)
+  self._output.updateIndex(source.stream, index)
   
   for (var i=0; i<self.sources.length; i++) {
     if (self.sources[i].id === source.id) {
@@ -12913,6 +12941,8 @@ Scene.prototype.focusSource = function (source) {
 
 Scene.prototype.show = function () {
   var self = this
+
+  console.log(self._output._streams)
   
   for (var i=0; i<self.sources.length; i++) {
     if (self.sources[i].mover) {
