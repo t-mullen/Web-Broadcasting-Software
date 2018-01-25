@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test": "standard --fix src/* && tape test/*.js",
-    "build": "browserify src/index.js -t browserify-css -s WBS -o dist/wbs.js"
+    "build": "browserify src/index.js -t browserify-css -s WBS -o dist/wbs.js",
+    "watch": "watchify src/index.js -t browserify-css -s WBS -o dist/wbs.js"
   },
   "author": "Thomas Mullen",
   "license": "MIT",
@@ -29,7 +30,7 @@
     "inherits": "^2.0.3",
     "interactjs": "^1.2.8",
     "vex-js": "^3.1.1",
-    "video-stream-merger": "^2.6.3",
+    "video-stream-merger": "^2.8.3",
     "volume-meter": "^2.0.1"
   }
 }
