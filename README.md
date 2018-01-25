@@ -95,3 +95,5 @@ Here is an example device:
 `wbs` does not **broadcast** your video, it simply gives you an output MediaStream to do with as you wish.
 
 You could send it over a WebRTC connection, record it as a file, send to to a proxy RTMP server, pipe it through FFMPEG... anything.
+
+For an example P2P transport using [Dat](https://datproject.org/) and [BeakerBrowser](https://beakerbrowser.com/), see [wbs-plus-hypercast](https://github.com/RationalCoding/wbs-plus-hypercast). (Only works with Beaker Browser.)
