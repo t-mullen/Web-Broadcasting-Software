@@ -9345,6 +9345,7 @@ function VideoStreamMerger (opts) {
   self.width = opts.width || 400
   self.height = opts.height || 300
   self.fps = opts.fps || 25
+  self.clearRect = opts.clearRect === undefined ? true : opts.clearRect
 
   // Hidden canvas element for merging
   self._canvas = document.createElement('canvas')
@@ -9454,8 +9455,9 @@ VideoStreamMerger.prototype.addMediaElement = function (id, element, opts) {
   }
 
   if (!opts.mute) {
-    var audioSource = self.getAudioContext().createMediaElementSource(element)
-    audioSource.connect(self.getAudioContext().destination) // play true audio
+    var audioSource = element._mediaElementSource || self.getAudioContext().createMediaElementSource(element)
+    element._mediaElementSource = audioSource // can only make one source per element, so store it for later (ties the source to the element's garbage collection)
+    audioSource.connect(self.getAudioContext().destination) // play audio from original element
 
     var gainNode = self.getAudioContext().createGain()
     audioSource.connect(gainNode)
@@ -9513,6 +9515,8 @@ VideoStreamMerger.prototype.addStream = function (mediaStream, opts) {
     videoElement.autoplay = true
     videoElement.muted = true
     videoElement.srcObject = mediaStream
+    videoElement.setAttribute('style', 'position:fixed; left: 0px; top:0px; pointer-events: none; opacity:0')
+    document.body.appendChild(videoElement)
 
     if (!stream.mute) {
       stream.audioSource = self._audioCtx.createMediaStreamSource(mediaStream)
@@ -9609,7 +9613,9 @@ VideoStreamMerger.prototype._draw = function () {
     if (awaiting <= 0) window.requestAnimationFrame(self._draw.bind(self))
   }
 
-  self._ctx.clearRect(0, 0, self.width, self.height)
+  if (self.clearRect) {
+    self._ctx.clearRect(0, 0, self.width, self.height)
+  }
   self._streams.forEach(function (video) {
     if (video.draw) { // custom frame transform
       video.draw(self._ctx, video.element, done)
@@ -12895,8 +12901,8 @@ Mixer.prototype.addStream = function (sourceObj, sourceNode, destNode) {
   
   self.emit('sourceAdd', sourceObj)
   
-  var meter = VolumeMeter(self.audioContext, { tweenIn: 1, tweenOut: 1 }, function (volume) {
-    self.emit('sourceVolume', sourceObj, Math.max(volume, 1))
+  var meter = VolumeMeter(self.audioContext, { tweenIn: 2, tweenOut: 6 }, function (volume) {
+    self.emit('sourceVolume', sourceObj, volume)
   })
   
   sourceNode.connect(meter)
@@ -13036,7 +13042,7 @@ Scene.prototype.hide = function () {
   for (var i=0; i<self.sources.length; i++) {
     self._output.removeStream(self.sources[i].stream)
     mixer.removeStream(self.sources[i])
-    
+
     if (self.sources[i].mover) {
       self.sources[i].mover.hide()
     }
