@@ -6,7 +6,7 @@ Live broadcasting and recording software for the web, inspired by [OBS](https://
 
 The UI and functionality of WBS is modeled around Open Broadcasting Software (OBS), but can be easily modified to suit less technical users.
 
-[Try the Live Demo](https://rationalcoding.github.io/Web-Broadcasting-Software/) 
+[Try the Live Demo](https://t-mullen.github.io/Web-Broadcasting-Software/) 
 
 If you've never used similar software:
   1. Click "+" on scenes.
@@ -96,4 +96,4 @@ Here is an example device:
 
 You could send it over a WebRTC connection, record it as a file, send to to a proxy RTMP server, pipe it through FFMPEG... anything.
 
-For an example P2P transport using [Dat](https://datproject.org/) and [BeakerBrowser](https://beakerbrowser.com/), see [wbs-plus-hypercast](https://github.com/RationalCoding/wbs-plus-hypercast). (Only works with Beaker Browser.)
+For an example P2P transport using [Dat](https://datproject.org/) and [BeakerBrowser](https://beakerbrowser.com/), see [wbs-plus-hypercast](https://github.com/t-mullen/wbs-plus-hypercast). (Only works with Beaker Browser.)
