@@ -23,6 +23,7 @@
     "tape": "^4.6.3"
   },
   "dependencies": {
+    "cuid": "^2.1.1",
     "debounce": "^1.0.0",
     "enumerate-devices": "^1.1.1",
     "getusermedia": "^2.0.1",

@@ -290,7 +290,7 @@ function isTruthy(value) {
     return !!value
 }
 
-},{"indexof":14}],7:[function(require,module,exports){
+},{"indexof":17}],7:[function(require,module,exports){
 /*
  * classList.js: Cross-browser full element.classList implementation.
  * 2014-07-23
@@ -534,6 +534,98 @@ if ("document" in window.self) {
 }
 
 },{}],8:[function(require,module,exports){
+/**
+ * cuid.js
+ * Collision-resistant UID generator for browsers and node.
+ * Sequential for fast db lookups and recency sorting.
+ * Safe for element IDs and server-side lookups.
+ *
+ * Extracted from CLCTR
+ *
+ * Copyright (c) Eric Elliott 2012
+ * MIT License
+ */
+
+var fingerprint = require('./lib/fingerprint.js');
+var pad = require('./lib/pad.js');
+
+var c = 0,
+  blockSize = 4,
+  base = 36,
+  discreteValues = Math.pow(base, blockSize);
+
+function randomBlock () {
+  return pad((Math.random() *
+    discreteValues << 0)
+    .toString(base), blockSize);
+}
+
+function safeCounter () {
+  c = c < discreteValues ? c : 0;
+  c++; // this is not subliminal
+  return c - 1;
+}
+
+function cuid () {
+  // Starting with a lowercase letter makes
+  // it HTML element ID friendly.
+  var letter = 'c', // hard-coded allows for sequential access
+
+    // timestamp
+    // warning: this exposes the exact date and time
+    // that the uid was created.
+    timestamp = (new Date().getTime()).toString(base),
+
+    // Prevent same-machine collisions.
+    counter = pad(safeCounter().toString(base), blockSize),
+
+    // A few chars to generate distinct ids for different
+    // clients (so different computers are far less
+    // likely to generate the same id)
+    print = fingerprint(),
+
+    // Grab some more chars from Math.random()
+    random = randomBlock() + randomBlock();
+
+  return letter + timestamp + counter + print + random;
+}
+
+cuid.slug = function slug () {
+  var date = new Date().getTime().toString(36),
+    counter = safeCounter().toString(36).slice(-4),
+    print = fingerprint().slice(0, 1) +
+      fingerprint().slice(-1),
+    random = randomBlock().slice(-2);
+
+  return date.slice(-2) +
+    counter + print + random;
+};
+
+cuid.fingerprint = fingerprint;
+
+module.exports = cuid;
+
+},{"./lib/fingerprint.js":9,"./lib/pad.js":10}],9:[function(require,module,exports){
+var pad = require('./pad.js');
+
+var env = typeof window === 'object' ? window : self;
+var globalCount = Object.keys(env).length;
+var mimeTypesLength = navigator.mimeTypes ? navigator.mimeTypes.length : 0;
+var clientId = pad((mimeTypesLength +
+  navigator.userAgent.length).toString(36) +
+  globalCount.toString(36), 4);
+
+module.exports = function fingerprint () {
+  return clientId;
+};
+
+},{"./pad.js":10}],10:[function(require,module,exports){
+module.exports = function pad (num, size) {
+  var s = '000000000' + num;
+  return s.substr(s.length - size);
+};
+
+},{}],11:[function(require,module,exports){
 
 /**
  * Expose `parse`.
@@ -647,7 +739,7 @@ function parse(html, doc) {
   return fragment;
 }
 
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports = function (cb) {
     if (typeof Promise !== 'function') {
       var err = new Error('Device enumeration not supported.');
@@ -702,7 +794,7 @@ module.exports = function (cb) {
     });
 };
 
-},{}],10:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /**
  * Code refactored from Mozilla Developer Network:
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
@@ -750,7 +842,7 @@ module.exports = {
   polyfill: polyfill
 };
 
-},{}],11:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 // get successful control from form and assemble into object
 // http://www.w3.org/TR/html401/interact/forms.html#h-17.13.2
 
@@ -1012,7 +1104,7 @@ function str_serialize(result, key, value) {
 
 module.exports = serialize;
 
-},{}],12:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 // getUserMedia helper by @HenrikJoreteg used for navigator.getUserMedia shim
 var adapter = require('webrtc-adapter');
 
@@ -1089,7 +1181,7 @@ module.exports = function (constraints, cb) {
     });
 };
 
-},{"webrtc-adapter":24}],13:[function(require,module,exports){
+},{"webrtc-adapter":27}],16:[function(require,module,exports){
 var split = require('browser-split')
 var ClassList = require('class-list')
 
@@ -1251,7 +1343,7 @@ function isArray (arr) {
 
 
 
-},{"browser-split":4,"class-list":6,"html-element":48}],14:[function(require,module,exports){
+},{"browser-split":4,"class-list":6,"html-element":51}],17:[function(require,module,exports){
 
 var indexOf = [].indexOf;
 
@@ -1262,7 +1354,7 @@ module.exports = function(arr, obj){
   }
   return -1;
 };
-},{}],15:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -1287,7 +1379,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],16:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 /**
  * interact.js v1.2.8
  *
@@ -7266,7 +7358,7 @@ if (typeof Object.create === 'function') {
 
 } (typeof window === 'undefined'? undefined : window));
 
-},{}],17:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 (function (process){
 // Generated by CoffeeScript 1.12.2
 (function() {
@@ -7306,7 +7398,7 @@ if (typeof Object.create === 'function') {
 
 
 }).call(this,require('_process'))
-},{"_process":50}],18:[function(require,module,exports){
+},{"_process":53}],21:[function(require,module,exports){
 (function (global){
 var now = require('performance-now')
   , root = typeof window === 'undefined' ? global : window
@@ -7382,7 +7474,7 @@ module.exports.polyfill = function() {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"performance-now":17}],19:[function(require,module,exports){
+},{"performance-now":20}],22:[function(require,module,exports){
  /* eslint-env node */
 'use strict';
 
@@ -7967,7 +8059,7 @@ SDPUtils.isRejected = function(mediaSection) {
 // Expose public methods.
 module.exports = SDPUtils;
 
-},{}],20:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 (function (global){
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.vexDialog = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
@@ -8575,7 +8667,7 @@ module.exports = plugin
 },{"domify":1,"form-serialize":2}]},{},[3])(3)
 });
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"domify":8,"form-serialize":11}],21:[function(require,module,exports){
+},{"domify":11,"form-serialize":14}],24:[function(require,module,exports){
 (function (global){
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.vex = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -9324,7 +9416,7 @@ module.exports = vex
 },{"classlist-polyfill":1,"domify":2,"es6-object-assign":3}]},{},[4])(4)
 });
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"classlist-polyfill":7,"domify":8,"es6-object-assign":10}],22:[function(require,module,exports){
+},{"classlist-polyfill":7,"domify":11,"es6-object-assign":13}],25:[function(require,module,exports){
 /* globals window */
 
 module.exports = VideoStreamMerger
@@ -9650,7 +9742,7 @@ VideoStreamMerger.prototype.destroy = function () {
 
 module.exports = VideoStreamMerger
 
-},{}],23:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 var raf = require('raf');
 
 module.exports = VolumeMeter
@@ -9711,7 +9803,7 @@ function getDynamicRange(buffer) {
   return (max - min) / 255
 }
 
-},{"raf":18}],24:[function(require,module,exports){
+},{"raf":21}],27:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -9805,7 +9897,7 @@ function getDynamicRange(buffer) {
   }
 })();
 
-},{"./chrome/chrome_shim":25,"./edge/edge_shim":27,"./firefox/firefox_shim":29,"./safari/safari_shim":31,"./utils":32}],25:[function(require,module,exports){
+},{"./chrome/chrome_shim":28,"./edge/edge_shim":30,"./firefox/firefox_shim":32,"./safari/safari_shim":34,"./utils":35}],28:[function(require,module,exports){
 
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
@@ -10072,7 +10164,7 @@ module.exports = {
   shimGetUserMedia: require('./getusermedia')
 };
 
-},{"../utils.js":32,"./getusermedia":26}],26:[function(require,module,exports){
+},{"../utils.js":35,"./getusermedia":29}],29:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -10272,7 +10364,7 @@ module.exports = function() {
   }
 };
 
-},{"../utils.js":32}],27:[function(require,module,exports){
+},{"../utils.js":35}],30:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11401,7 +11493,7 @@ module.exports = {
   shimGetUserMedia: require('./getusermedia')
 };
 
-},{"../utils":32,"./getusermedia":28,"sdp":19}],28:[function(require,module,exports){
+},{"../utils":35,"./getusermedia":31,"sdp":22}],31:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11435,7 +11527,7 @@ module.exports = function() {
   };
 };
 
-},{}],29:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11599,7 +11691,7 @@ module.exports = {
   shimGetUserMedia: require('./getusermedia')
 };
 
-},{"../utils":32,"./getusermedia":30}],30:[function(require,module,exports){
+},{"../utils":35,"./getusermedia":33}],33:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11762,7 +11854,7 @@ module.exports = function() {
   };
 };
 
-},{"../utils":32}],31:[function(require,module,exports){
+},{"../utils":35}],34:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11792,7 +11884,7 @@ module.exports = {
   // shimPeerConnection: safariShim.shimPeerConnection
 };
 
-},{}],32:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11925,7 +12017,7 @@ module.exports = {
   extractVersion: utils.extractVersion
 };
 
-},{}],33:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 var h = require('hyperscript')
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
@@ -12142,7 +12234,7 @@ List.prototype._checkButtons = function () {
 }
 
 module.exports = List
-},{"./listoption":34,"events":49,"hyperscript":13,"inherits":15}],34:[function(require,module,exports){
+},{"./listoption":37,"events":52,"hyperscript":16,"inherits":18}],37:[function(require,module,exports){
 var h = require('hyperscript')
 
 function ListOption (index, text, value) {
@@ -12166,7 +12258,7 @@ ListOption.prototype.destroy = function () {
 }
   
 module.exports = ListOption
-},{"hyperscript":13}],35:[function(require,module,exports){
+},{"hyperscript":16}],38:[function(require,module,exports){
 // moves/resizes a source on a scene
 
 var EventEmitter = require('events').EventEmitter
@@ -12330,7 +12422,7 @@ SourceMover.prototype.destroy = function () {
 }
   
 module.exports = SourceMover
-},{"events":49,"hyperscript":13,"inherits":15,"interactjs":16}],36:[function(require,module,exports){
+},{"events":52,"hyperscript":16,"inherits":18,"interactjs":19}],39:[function(require,module,exports){
 var h = require('hyperscript')
 var VideoStreamMerger = require('video-stream-merger')
 var EventEmitter = require('events').EventEmitter
@@ -12404,7 +12496,7 @@ Display.prototype._changeScene = function (scene) {
 }
   
 module.exports = Display
-},{"./widgets/controls":37,"./widgets/mixerPanel":38,"./widgets/scenes":39,"./widgets/sources":40,"./widgets/transitions":41,"./widgets/view":42,"events":49,"hyperscript":13,"inherits":15,"video-stream-merger":22}],37:[function(require,module,exports){
+},{"./widgets/controls":40,"./widgets/mixerPanel":41,"./widgets/scenes":42,"./widgets/sources":43,"./widgets/transitions":44,"./widgets/view":45,"events":52,"hyperscript":16,"inherits":18,"video-stream-merger":25}],40:[function(require,module,exports){
 var h = require('hyperscript')
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
@@ -12456,7 +12548,7 @@ Controls.prototype.clickSettings = function () {
 }
   
 module.exports = Controls
-},{"events":49,"hyperscript":13,"inherits":15}],38:[function(require,module,exports){
+},{"events":52,"hyperscript":16,"inherits":18}],41:[function(require,module,exports){
 var h = require('hyperscript')
 
 var mixer = require('./../../lib/mixer')
@@ -12493,7 +12585,7 @@ function MixerPanel () {
 }
   
 module.exports = MixerPanel
-},{"./../../lib/mixer":45,"hyperscript":13}],39:[function(require,module,exports){
+},{"./../../lib/mixer":48,"hyperscript":16}],42:[function(require,module,exports){
 // Controls adding/removing/changing of scenes
 
 var h = require('hyperscript')
@@ -12574,7 +12666,7 @@ Scenes.prototype._changeScene = function (scene) {
 }
   
 module.exports = Scenes
-},{"./../../lib/scene":46,"./../common/list":33,"events":49,"hyperscript":13,"inherits":15,"video-stream-merger":22}],40:[function(require,module,exports){
+},{"./../../lib/scene":49,"./../common/list":36,"events":52,"hyperscript":16,"inherits":18,"video-stream-merger":25}],43:[function(require,module,exports){
 var h = require('hyperscript')
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
@@ -12668,7 +12760,7 @@ Sources.prototype.setScene = function (scene) {
 }
   
 module.exports = Sources
-},{"./../../lib/inputmanager":44,"./../../lib/source":47,"./../common/list":33,"events":49,"hyperscript":13,"inherits":15}],41:[function(require,module,exports){
+},{"./../../lib/inputmanager":47,"./../../lib/source":50,"./../common/list":36,"events":52,"hyperscript":16,"inherits":18}],44:[function(require,module,exports){
 var h = require('hyperscript')
 
 function Transitions () {
@@ -12684,7 +12776,7 @@ Transitions.prototype.method = function () {
 }
   
 module.exports = Transitions
-},{"hyperscript":13}],42:[function(require,module,exports){
+},{"hyperscript":16}],45:[function(require,module,exports){
 var h = require('hyperscript')
 
 function View () {
@@ -12709,11 +12801,11 @@ View.prototype.addMover = function (mover) {
 View.prototype.setStream = function (stream) {
   var self = this
   
-  self.video.src = window.URL.createObjectURL(stream)
+  self.video.srcObject = stream
 }
 
 module.exports = View
-},{"hyperscript":13}],43:[function(require,module,exports){
+},{"hyperscript":16}],46:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
 
@@ -12758,7 +12850,7 @@ function WBS (element, opts) {
 
 module.exports = WBS
 
-},{"./../less/wbs.css":3,"./display/display":36,"./lib/mixer":45,"events":49,"inherits":15}],44:[function(require,module,exports){
+},{"./../less/wbs.css":3,"./display/display":39,"./lib/mixer":48,"events":52,"inherits":18}],47:[function(require,module,exports){
 var vex = require('vex-js')
 vex.registerPlugin(require('vex-dialog'))
 
@@ -12875,7 +12967,7 @@ InputManager.prototype.chooseDevice = function (cb) {
 }
   
 module.exports = InputManager
-},{"./../../less/vex-theme-plain.css":1,"./../../less/vex.css":2,"enumerate-devices":9,"getusermedia":12,"hyperscript":13,"vex-dialog":20,"vex-js":21}],45:[function(require,module,exports){
+},{"./../../less/vex-theme-plain.css":1,"./../../less/vex.css":2,"enumerate-devices":12,"getusermedia":15,"hyperscript":16,"vex-dialog":23,"vex-js":24}],48:[function(require,module,exports){
 var VolumeMeter = require('volume-meter')
 
 var EventEmitter = require('events').EventEmitter
@@ -12919,7 +13011,7 @@ Mixer.prototype.removeStream = function (id) {
 }
   
 module.exports = new Mixer()
-},{"events":49,"inherits":15,"volume-meter":23}],46:[function(require,module,exports){
+},{"events":52,"inherits":18,"volume-meter":26}],49:[function(require,module,exports){
 // merges multiple Sources
 
 var EventEmitter = require('events').EventEmitter
@@ -12963,7 +13055,11 @@ Scene.prototype.addSource = function (source, opts) {
     opts.audioEffect = source.audioEffect
   }
   
-  self._output.addStream(source.stream, opts)
+  if (source.stream instanceof HTMLMediaElement) {
+    self._output.addMediaElement(source.id, source.stream, opts)
+  } else {
+    self._output.addStream(source.stream, opts)
+  }
   self.sources.push(source)
 
   console.log(self.sources)
@@ -13021,17 +13117,33 @@ Scene.prototype.show = function () {
   console.log(self._output._streams)
   
   for (var i=0; i<self.sources.length; i++) {
-    if (self.sources[i].mover) {
-      self._output.addStream(self.sources[i].stream, {
-        draw: self.sources[i].mover.draw.bind(self.sources[i].mover),
-        audioEffect: mixer.addStream.bind(mixer, self.sources[i]),
-        mute: true
-      })
-      self.sources[i].mover.show()
+    var isMediaElement = self.sources[i] instanceof HTMLMediaElement
+    if (isMediaElement) {
+      if (self.sources[i].mover) {
+        self._output.addMediaElement(self.sources[i].id, self.sources[i].stream, {
+          draw: self.sources[i].mover.draw.bind(self.sources[i].mover),
+          audioEffect: mixer.addStream.bind(mixer, self.sources[i]),
+          mute: true
+        })
+        self.sources[i].mover.show()
+      } else {
+        self._output.addMediaElement(self.sources[i].id, self.sources[i].stream, {
+          audioEffect: mixer.addStream.bind(mixer, self.sources[i])
+        })
+      }
     } else {
-      self._output.addStream(self.sources[i].stream, {
-        audioEffect: mixer.addStream.bind(mixer, self.sources[i])
-      })
+      if (self.sources[i].mover) {
+        self._output.addStream(self.sources[i].stream, {
+          draw: self.sources[i].mover.draw.bind(self.sources[i].mover),
+          audioEffect: mixer.addStream.bind(mixer, self.sources[i]),
+          mute: true
+        })
+        self.sources[i].mover.show()
+      } else {
+        self._output.addStream(self.sources[i].stream, {
+          audioEffect: mixer.addStream.bind(mixer, self.sources[i])
+        })
+      }
     }
   }
 }
@@ -13040,7 +13152,11 @@ Scene.prototype.hide = function () {
   var self = this
   
   for (var i=0; i<self.sources.length; i++) {
-    self._output.removeStream(self.sources[i].stream)
+    if (self.sources[i].stream instanceof HTMLMediaElement) {
+      self._output.removeStream(self.sources[i].id)
+    } else {
+      self._output.removeStream(self.sources[i].stream)
+    }
     mixer.removeStream(self.sources[i])
 
     if (self.sources[i].mover) {
@@ -13060,11 +13176,12 @@ Scene.prototype.destroy = function () {
 }
   
 module.exports = Scene
-},{"./../display/common/sourcemover":35,"./mixer":45,"events":49,"inherits":15}],47:[function(require,module,exports){
+},{"./../display/common/sourcemover":38,"./mixer":48,"events":52,"inherits":18}],50:[function(require,module,exports){
 // wraps an input MediaStream
 
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
+var cuid = require('cuid')
 
 inherits(Source, EventEmitter)
 
@@ -13072,7 +13189,7 @@ function Source (stream, name, hasVideo) {
   var self = this
 
   self.stream = stream || null
-  self.id = stream.id
+  self.id = stream.id || cuid()
   self.name = name || 'Source'
   self.hasVideo = hasVideo
   self.mover = null
@@ -13089,9 +13206,9 @@ Source.prototype.destroy = function () {
 }
   
 module.exports = Source
-},{"events":49,"inherits":15}],48:[function(require,module,exports){
+},{"cuid":8,"events":52,"inherits":18}],51:[function(require,module,exports){
 
-},{}],49:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -13395,7 +13512,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],50:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -13581,5 +13698,5 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[43])(43)
+},{}]},{},[46])(46)
 });

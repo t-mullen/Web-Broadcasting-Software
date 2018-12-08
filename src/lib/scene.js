@@ -41,7 +41,11 @@ Scene.prototype.addSource = function (source, opts) {
     opts.audioEffect = source.audioEffect
   }
   
-  self._output.addStream(source.stream, opts)
+  if (source.stream instanceof HTMLMediaElement) {
+    self._output.addMediaElement(source.id, source.stream, opts)
+  } else {
+    self._output.addStream(source.stream, opts)
+  }
   self.sources.push(source)
 
   console.log(self.sources)
@@ -99,17 +103,33 @@ Scene.prototype.show = function () {
   console.log(self._output._streams)
   
   for (var i=0; i<self.sources.length; i++) {
-    if (self.sources[i].mover) {
-      self._output.addStream(self.sources[i].stream, {
-        draw: self.sources[i].mover.draw.bind(self.sources[i].mover),
-        audioEffect: mixer.addStream.bind(mixer, self.sources[i]),
-        mute: true
-      })
-      self.sources[i].mover.show()
+    var isMediaElement = self.sources[i] instanceof HTMLMediaElement
+    if (isMediaElement) {
+      if (self.sources[i].mover) {
+        self._output.addMediaElement(self.sources[i].id, self.sources[i].stream, {
+          draw: self.sources[i].mover.draw.bind(self.sources[i].mover),
+          audioEffect: mixer.addStream.bind(mixer, self.sources[i]),
+          mute: true
+        })
+        self.sources[i].mover.show()
+      } else {
+        self._output.addMediaElement(self.sources[i].id, self.sources[i].stream, {
+          audioEffect: mixer.addStream.bind(mixer, self.sources[i])
+        })
+      }
     } else {
-      self._output.addStream(self.sources[i].stream, {
-        audioEffect: mixer.addStream.bind(mixer, self.sources[i])
-      })
+      if (self.sources[i].mover) {
+        self._output.addStream(self.sources[i].stream, {
+          draw: self.sources[i].mover.draw.bind(self.sources[i].mover),
+          audioEffect: mixer.addStream.bind(mixer, self.sources[i]),
+          mute: true
+        })
+        self.sources[i].mover.show()
+      } else {
+        self._output.addStream(self.sources[i].stream, {
+          audioEffect: mixer.addStream.bind(mixer, self.sources[i])
+        })
+      }
     }
   }
 }
@@ -118,7 +138,11 @@ Scene.prototype.hide = function () {
   var self = this
   
   for (var i=0; i<self.sources.length; i++) {
-    self._output.removeStream(self.sources[i].stream)
+    if (self.sources[i].stream instanceof HTMLMediaElement) {
+      self._output.removeStream(self.sources[i].id)
+    } else {
+      self._output.removeStream(self.sources[i].stream)
+    }
     mixer.removeStream(self.sources[i])
 
     if (self.sources[i].mover) {

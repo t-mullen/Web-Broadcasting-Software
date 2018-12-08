@@ -22,7 +22,7 @@ View.prototype.addMover = function (mover) {
 View.prototype.setStream = function (stream) {
   var self = this
   
-  self.video.src = window.URL.createObjectURL(stream)
+  self.video.srcObject = stream
 }
 
 module.exports = View
