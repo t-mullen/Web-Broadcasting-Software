@@ -45,6 +45,8 @@ If you've never used similar software:
 
 `element` is a HTMLElement or CSS selector string. The display will attempt to fit inside this element.
 
+This constructor must be wrapped in a user gesture like a "click" event listener.
+
 Optional `opts` is a configuration object that will override the following defaults:
 
 ```
