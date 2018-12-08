@@ -23,7 +23,9 @@
 <script src="dist/wbs.js"></script>
 <script>
   window.addEventListener('click', () => {
-    document.querySelector('#intro').parentElement.removeChild(document.querySelector('#intro'))
+    var intro = document.querySelector('#intro')
+    if (!intro) return
+    intro.parentElement.removeChild(intro)
 
     var wbs = new WBS('div')
   })
