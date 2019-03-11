@@ -58,13 +58,24 @@ function InputManager (opts) {
   getMediaPermissions(function (err) {
     if (err) return console.error(err)
 
+    if (navigator.mediaDevices.getDisplayMedia) {
+      self.inputs.push({
+        id: ++counter,
+        name: 'Screen Capture',
+        getStream: function (cb) {
+          navigator.mediaDevices.getDisplayMedia({ audio: false, video: true }).then(stream => {
+            cb(null, 'Screen Capture', true, stream)
+          })
+        }
+      })
+    }
+
     enumerateDevices().then((devices) => {
       devices.forEach(function (device) {
-        counter++
         var deviceName = getReadableName(device, counter)
         var hasVideo = contains(device.kind, 'video')
         self.inputs.push({
-          id: counter,
+          id: ++counter,
           name: deviceName,
           getStream: function (cb) {
             getusermedia({
