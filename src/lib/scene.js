@@ -41,7 +41,7 @@ Scene.prototype.addSource = function (source, opts) {
     opts.audioEffect = source.audioEffect
   }
   
-  if (source.stream instanceof HTMLMediaElement) {
+  if (source.stream instanceof HTMLMediaElement || source.stream instanceof HTMLImageElement) {
     self._output.addMediaElement(source.id, source.stream, opts)
   } else {
     self._output.addStream(source.stream, opts)

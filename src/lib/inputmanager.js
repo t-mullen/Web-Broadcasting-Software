@@ -58,6 +58,24 @@ function InputManager (opts) {
   getMediaPermissions(function (err) {
     if (err) return console.error(err)
 
+    self.inputs.push({
+      id: ++counter,
+      name: 'Image Asset',
+      getStream: function (cb) {
+        self.getFile(file => {
+          const imageElement = document.createElement('img')
+          const reader = new FileReader()
+          console.log(file)
+          reader.onload = function(event) {
+            console.log('loaded')
+            imageElement.src = event.target.result
+            cb(null, file.name, true, imageElement)
+          }
+          reader.readAsDataURL(file)
+        })
+      }
+    })
+
     if (navigator.mediaDevices.getDisplayMedia) {
       self.inputs.push({
         id: ++counter,
@@ -91,6 +109,33 @@ function InputManager (opts) {
   })
 }
 
+InputManager.prototype.getFile = function (cb) {
+  var self = this
+  
+  vex.dialog.open({
+    message: 'Select a file',
+    input: [
+        '<style>',
+            '.vex-custom-field-wrapper {',
+                'margin: 1em 0;',
+            '}',
+            '.vex-custom-field-wrapper > label {',
+                'display: inline-block;',
+                'margin-bottom: .2em;',
+            '}',
+        '</style>',
+        '<div class="vex-custom-field-wrapper">',
+          '<input id="fileUpload" type="file" />',
+        '</div>'
+    ].join(''),
+    callback: function () {
+        const file = document.querySelector('#fileUpload').files[0]
+        if (!file) return
+        cb(file)
+    }
+  })
+}
+
 InputManager.prototype.chooseDevice = function (cb) {
   var self = this
   
@@ -118,7 +163,6 @@ InputManager.prototype.chooseDevice = function (cb) {
     ].join(''),
     callback: function (data) {
         if (!data) return
-        
         self.inputs[data.chosen].getStream(cb)
     }
   })

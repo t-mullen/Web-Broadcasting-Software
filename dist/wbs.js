@@ -9507,15 +9507,21 @@ VideoStreamMerger.prototype.updateIndex = function (mediaStream, index) {
     }
   }
 
-  index = index == null ? self._streams.length : index
+  index = index == null ? 0 : index
 
   for (var i = 0; i < self._streams.length; i++) {
     if (mediaStream.id === self._streams[i].id) {
-      var stream = self._streams.splice(i, 1)[0]
-      stream.index = index
-      self._streams.splice(stream.index, 0, stream)
+      self._streams[i].index = index
     }
   }
+  self._sortStreams()
+}
+
+VideoStreamMerger.prototype._sortStreams = function () {
+  var self = this
+  self._streams = self._streams.sort((a, b) => {
+    return a.index - b.index
+  })
 }
 
 // convenience function for adding a media element
@@ -9533,7 +9539,7 @@ VideoStreamMerger.prototype.addMediaElement = function (id, element, opts) {
   opts.oldDraw = opts.draw
   opts.oldAudioEffect = opts.audioEffect
 
-  if (element.tagName === 'VIDEO') {
+  if (element.tagName === 'VIDEO' || element.tagName === 'IMG') {
     opts.draw = function (ctx, _, done) {
       if (opts.oldDraw) {
         opts.oldDraw(ctx, element, done)
@@ -9592,7 +9598,7 @@ VideoStreamMerger.prototype.addStream = function (mediaStream, opts) {
   stream.draw = opts.draw || null
   stream.mute = opts.mute || opts.muted || false
   stream.audioEffect = opts.audioEffect || null
-  stream.index = opts.index == null ? self._streams.length : opts.index
+  stream.index = opts.index == null ? 0 : opts.index
 
   // If it is the same MediaStream, we can reuse our video element (and ignore sound)
   var videoElement = null
@@ -9607,7 +9613,7 @@ VideoStreamMerger.prototype.addStream = function (mediaStream, opts) {
     videoElement.autoplay = true
     videoElement.muted = true
     videoElement.srcObject = mediaStream
-    videoElement.setAttribute('style', 'position:fixed; left: 0px; top:0px; pointer-events: none; opacity:0')
+    videoElement.setAttribute('style', 'position:fixed; left: 0px; top:0px; pointer-events: none; opacity:0;')
     document.body.appendChild(videoElement)
 
     if (!stream.mute) {
@@ -9625,7 +9631,8 @@ VideoStreamMerger.prototype.addStream = function (mediaStream, opts) {
 
   stream.element = videoElement
   stream.id = mediaStream.id || null
-  self._streams.splice(stream.index, 0, stream)
+  self._streams.push(stream)
+  self._sortStreams()
 }
 
 VideoStreamMerger.prototype.removeStream = function (mediaStream) {
@@ -9665,7 +9672,7 @@ VideoStreamMerger.prototype._addData = function (key, opts) {
   stream.audioEffect = opts.audioEffect || null
   stream.id = key
   stream.element = null
-  stream.index = opts.index == null ? self._streams.length : opts.index
+  stream.index = opts.index == null ? 0 : opts.index
 
   if (stream.audioEffect) {
     stream.audioOutput = self._audioCtx.createGain() // Intermediate gain node
@@ -9674,7 +9681,8 @@ VideoStreamMerger.prototype._addData = function (key, opts) {
     stream.audioOutput.connect(self._audioDestination)
   }
 
-  self._streams.splice(stream.index, 0, stream)
+  self._streams.push(stream)
+  self._sortStreams()
 }
 
 VideoStreamMerger.prototype.start = function () {
@@ -12911,6 +12919,24 @@ function InputManager (opts) {
   getMediaPermissions(function (err) {
     if (err) return console.error(err)
 
+    self.inputs.push({
+      id: ++counter,
+      name: 'Image Asset',
+      getStream: function (cb) {
+        self.getFile(file => {
+          const imageElement = document.createElement('img')
+          const reader = new FileReader()
+          console.log(file)
+          reader.onload = function(event) {
+            console.log('loaded')
+            imageElement.src = event.target.result
+            cb(null, file.name, true, imageElement)
+          }
+          reader.readAsDataURL(file)
+        })
+      }
+    })
+
     if (navigator.mediaDevices.getDisplayMedia) {
       self.inputs.push({
         id: ++counter,
@@ -12944,6 +12970,33 @@ function InputManager (opts) {
   })
 }
 
+InputManager.prototype.getFile = function (cb) {
+  var self = this
+  
+  vex.dialog.open({
+    message: 'Select a file',
+    input: [
+        '<style>',
+            '.vex-custom-field-wrapper {',
+                'margin: 1em 0;',
+            '}',
+            '.vex-custom-field-wrapper > label {',
+                'display: inline-block;',
+                'margin-bottom: .2em;',
+            '}',
+        '</style>',
+        '<div class="vex-custom-field-wrapper">',
+          '<input id="fileUpload" type="file" />',
+        '</div>'
+    ].join(''),
+    callback: function () {
+        const file = document.querySelector('#fileUpload').files[0]
+        if (!file) return
+        cb(file)
+    }
+  })
+}
+
 InputManager.prototype.chooseDevice = function (cb) {
   var self = this
   
@@ -12971,7 +13024,6 @@ InputManager.prototype.chooseDevice = function (cb) {
     ].join(''),
     callback: function (data) {
         if (!data) return
-        
         self.inputs[data.chosen].getStream(cb)
     }
   })
@@ -13066,7 +13118,7 @@ Scene.prototype.addSource = function (source, opts) {
     opts.audioEffect = source.audioEffect
   }
   
-  if (source.stream instanceof HTMLMediaElement) {
+  if (source.stream instanceof HTMLMediaElement || source.stream instanceof HTMLImageElement) {
     self._output.addMediaElement(source.id, source.stream, opts)
   } else {
     self._output.addStream(source.stream, opts)
