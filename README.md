@@ -2,11 +2,13 @@
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+<img width="1278" alt="screenshot" src="https://user-images.githubusercontent.com/14932492/61163247-02022980-a4db-11e9-8bc2-d8e74578aa2f.png">
+
+[Try the Live Demo](https://t-mullen.github.io/Web-Broadcasting-Software/) 
+
 Live broadcasting and recording software for the web, inspired by [OBS](https://obsproject.com/). WBS allows broadcasters to record video and audio, create video composites, apply audiovisual effects and eventually output to a broadcast transport (which is not within the scope of this project)... all within the browser.
 
 The UI and functionality of WBS is modeled around Open Broadcasting Software (OBS), but can be easily modified to suit less technical users.
-
-[Try the Live Demo](https://t-mullen.github.io/Web-Broadcasting-Software/) 
 
 If you've never used similar software:
   1. Click "+" on scenes.
