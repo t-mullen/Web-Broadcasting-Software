@@ -1,6 +1,7 @@
 # Web Broadcasting Software (WBS)
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Donate A Coffee](https://img.shields.io/badge/-donate%20a%20coffee-orange)](https://www.buymeacoffee.com/tmullen)
 
 <img width="1278" alt="screenshot" src="https://user-images.githubusercontent.com/14932492/61163247-02022980-a4db-11e9-8bc2-d8e74578aa2f.png">
 
