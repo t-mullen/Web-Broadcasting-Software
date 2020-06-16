@@ -101,3 +101,11 @@ Here is an example device:
 You could send it over a WebRTC connection, record it as a file, send to to a proxy RTMP server, pipe it through FFMPEG... anything.
 
 For an example P2P transport using [Dat](https://datproject.org/) and [BeakerBrowser](https://beakerbrowser.com/), see [wbs-plus-hypercast](https://github.com/t-mullen/wbs-plus-hypercast). (Only works with Beaker Browser.)
+
+
+## Sponsors
+Support this project by becoming a sponsor. Your logo will appear here with a link to your website. [[Become a sponsor](https://github.com/sponsors/t-mullen)]
+
+<a href="https://filefire.ca"><img src="https://user-images.githubusercontent.com/14932492/84754967-15413300-af8f-11ea-80b8-3d04cccc2671.png" align="left" height="48" ></a>
+
+
